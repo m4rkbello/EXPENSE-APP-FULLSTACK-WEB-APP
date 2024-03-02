@@ -1,2 +1,16 @@
 ===============GASTO-APP=======================
+prerequiste:
+TOOLS NEEDED:
+BACKEND:
+php version 8.1+
+laragon - server connection
+navicat16 -for hanbdling database
 
+FRONTEND:
+npm 10.3
+node 18.17.0 
+
+1. CREATE PROJECT FOR BACKEND
+->composer create-project laravel/laravel backend
+2. ADD CONTROLLER 
+->php artisan 
