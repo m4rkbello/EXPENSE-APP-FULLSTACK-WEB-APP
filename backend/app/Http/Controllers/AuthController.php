@@ -75,6 +75,7 @@ class AuthController extends Controller
 {
     Auth::user()->currentAccessToken()->delete();
     return [
+        "success" => true,
         "message" => 'Logout successfully!'
     ];
 }
