@@ -20,4 +20,8 @@ node 18.17.0
 5. GO TO MIGRATIONS
 -add fields 
 6. CREATE MIGRATIONS 
-->php artisan migrate 
+->php artisan migrate
+7. GO TO studentController and add some codes for viewing the students data 
+8. VIEW ALL ROUTES API ENDPOINTS
+->php artisan route:list --path=api
+  
