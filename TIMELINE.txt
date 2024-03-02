@@ -12,5 +12,7 @@ node 18.17.0
 
 1. CREATE PROJECT FOR BACKEND
 ->composer create-project laravel/laravel backend
-2. ADD CONTROLLER 
-->php artisan 
+2. ADD CONTROLLER WITH API autocomplete the function (index, create, update, delete, show)
+->php artisan make:controller StudentController --api
+3. CREATE MIGRATIONS 
+-> php artisan make:model student -mfsr
