@@ -16,3 +16,4 @@ node 18.17.0
 ->php artisan make:controller StudentController --api
 3. CREATE MIGRATIONS 
 -> php artisan make:model student -mfsr
+4. GO TO MIGRATIONS 
