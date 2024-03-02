@@ -1,34 +1,52 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes, Link } from 'react-router-dom'
+import Home from './Components/Home'
+import Login from './Components/Login'
+import Register from './Components/Register'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='bg-red-200 min-h-screen'>
+    <div className="navbar bg-base-100">
+      <div className="flex-1">
+      
+      <Link to="/" className="btn btn-ghost text-xl">pullsnack</Link>
+      
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="flex-none">
+        <ul className="menu menu-horizontal px-1">
+        <li>
+        <Link to="/login">Login</Link>
+        </li>
+        <li>
+        <Link to="/register">Register</Link>
+        </li>
+          <li>
+            <details>
+              <summary>
+                OHAHA
+              </summary>
+              <ul className="p-2 bg-base-100 rounded-t-none">
+                <li>Link 1</li>
+                <li>Link 2</li>
+              </ul>
+            </details>
+          </li>
+        </ul>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
+    <div className='max-w-7xl mx-auto mt-6'>
+
+      <Routes>
+      <Route exact path="/home" element={ <Home />} />
+      <Route exact path="/login" element={ <Login />} />
+      <Route exact path="/register" element={ <Register />} />
+      </Routes>
+    </div>
+  </div>
   )
 }
 

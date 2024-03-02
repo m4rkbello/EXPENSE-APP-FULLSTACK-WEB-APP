@@ -26,3 +26,41 @@ node 18.17.0
 ->php artisan route:list --path=api
 9. MAKE AUTH CONTROLLER FOR REGISTER AND LOGIN
 ->php artisan make:cotroller AuthController
+5. INSTALL FRONTEND USING VITE-BUNDLER
+->npm create vite@latest frontend -- --template react
+6. INSTALL NPM 
+-> npm i
+7. INSTALL REACT-ROUTER-DOM 
+->npm i react-router-dom
+8. INSTALL AXIOS FOR HTTP REQUEST
+->npm i axios
+9. INSTALL TAILWINDCSS USING VITE 
+-> npm install -D tailwindcss postcss autoprefixer
+-> npx tailwindcss init -p
+--------------------------------------
+add this to tailwindcss.config.js 
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+--------------------------------------
+index.css removed the default
+--------------------------------------
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+--------------------------------------
+10. INSTALL DAISYUI AS A PLUGGIN 
+-> npm i -D daisyui@latest
+add the pluggins 
+module.exports = {
+  //...
+  plugins: [require("daisyui")],
+}
