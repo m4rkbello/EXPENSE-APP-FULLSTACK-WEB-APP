@@ -16,4 +16,8 @@ node 18.17.0
 ->php artisan make:controller StudentController --api
 3. CREATE MIGRATIONS 
 -> php artisan make:model student -mfsr
-4. GO TO MIGRATIONS 
+4. GO TO config/database.php and AppServiceProvider
+5. GO TO MIGRATIONS
+-add fields 
+6. CREATE MIGRATIONS 
+->php artisan migrate 
