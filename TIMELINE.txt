@@ -24,4 +24,5 @@ node 18.17.0
 7. GO TO studentController and add some codes for viewing the students data 
 8. VIEW ALL ROUTES API ENDPOINTS
 ->php artisan route:list --path=api
-  
+9. MAKE AUTH CONTROLLER FOR REGISTER AND LOGIN
+->php artisan make:cotroller AuthController
