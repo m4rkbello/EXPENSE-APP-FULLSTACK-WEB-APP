@@ -27,8 +27,8 @@ function App() {
   }
 
   return (
-    <div className='bg-violet-500 min-h-screen'>
-      <div className="navbar bg-base-100">
+    <div className='shadow-2xl .. bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... min-h-screen'>
+      <div className="navbar shadow-2xl .. bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ...">
       {hasToken.length !== 0 && hasToken ? (
         <div className="drawer">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -37,9 +37,9 @@ function App() {
           <label htmlFor="my-drawer" className="btn btn-primary drawer-button">   <AiOutlineMenu /> Menu</label>
 
         </div>
-        <div className="drawer-side">
+        <div className="shadow-2xl drawer-side">
           <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+          <ul className="menu p-4 w-80 min-h-full bg-black text-base-content">
             {/* Sidebar content here */}
             <Link to="/home"><a>Sidebar Item 1</a></Link>
             <li><a>Sidebar Item 2</a></li>
@@ -84,11 +84,11 @@ function App() {
               </div>
             ) : (
               <div>
-                <ul className="menu menu-horizontal px-1">
-                  <li>
+                <ul className="menu menu-horizontal px-1 text-black text-base">
+                  <li className='shadow-2xl'>
                     <Link to="/login">Login</Link>
                   </li>
-                  <li>
+                  <li className='shadow-2xl'>
                     <Link to="/register">Register</Link>
                   </li>
                 </ul>
