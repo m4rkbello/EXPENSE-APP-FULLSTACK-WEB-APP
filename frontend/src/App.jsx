@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     // Check if token exists in localStorage or cookies
-    const token = localStorage.getItem('M4rkbelloFullstackPersonalAccessToken') || getCookie('M4rkbelloFullstackPersonalAccessToken');
+    const token = localStorage.getItem('M4rkbelloFullstackPersonalAccessToken') && getCookie('M4rkbelloFullstackPersonalAccessToken');
     if (token) {
       setHasToken(true);
     }
