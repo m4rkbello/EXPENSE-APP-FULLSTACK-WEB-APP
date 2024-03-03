@@ -66,7 +66,7 @@ const Login = () => {
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" className="input input-bordered" required />
 
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                  <Link to="/home" className="label-text-alt link link-hover">Forgot password?</Link>
                 </label>
               </div>
               <div className="form-control mt-6">
