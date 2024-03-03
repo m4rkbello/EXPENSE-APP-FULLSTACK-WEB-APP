@@ -11,8 +11,10 @@ function App() {
   useEffect(() => {
     // Check if token exists in localStorage or cookies
     const token = localStorage.getItem('M4rkbelloFullstackPersonalAccessToken') && getCookie('M4rkbelloFullstackPersonalAccessToken');
+   
     if (token) {
       setHasToken(true);
+     
     }
   }, []);
 
@@ -30,7 +32,7 @@ function App() {
         </div>
  <div className="flex-none" style={{ display: 'flex' }}>
   <ul className="menu menu-horizontal px-1">
-    {hasToken ? (
+    {hasToken.length !== 0 && hasToken ? (
       <div>
         <ul className="menu menu-horizontal px-1">
           <li>
@@ -80,10 +82,10 @@ function App() {
             <>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/" element={<Navigate to="/login" />} />
+              <Route path="*" element={<NotFound />} />
+          
             </>
           )}
-          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </div>

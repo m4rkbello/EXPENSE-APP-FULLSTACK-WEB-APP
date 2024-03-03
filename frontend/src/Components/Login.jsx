@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../Services/Api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +15,8 @@ const Login = () => {
       const response = await axios.post('http://127.0.0.1:8000/api/login', { email, password });
       
       console.log("LOGIN SUCCESS!:", response.data);
-  
+      window.location.reload();
+      navigate("/home");
       // Check if login was successful
       if (response.data && response.data.success) {
         const { token } = response.data;
@@ -27,21 +30,23 @@ const Login = () => {
         // Clear email and password fields
         setEmail("");
         setPassword("");
-  
+       
         // Navigate to the desired route
-        navigate("/");
-      } else {
-        // Handle unsuccessful login (e.g., display error message)
-        console.log("Login failed:", response.data.message);
-      }
+      
+      } 
+      toast.success("Login successful!");
+
+
     } catch (error) {
       console.log("ERROR SA PAG LOGIN", error);
       // Handle network or other errors
+      toast.error("ERROR KOL!!");
     }
   };
 
   return (
     <div>
+    <ToastContainer />
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left"></div>
