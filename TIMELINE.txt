@@ -64,3 +64,7 @@ module.exports = {
   //...
   plugins: [require("daisyui")],
 }
+11. INSTALL TOASTIFY!
+->npm i react-toastify 
+12. INSTALL REACT-ICONS
+->npm install react-icons

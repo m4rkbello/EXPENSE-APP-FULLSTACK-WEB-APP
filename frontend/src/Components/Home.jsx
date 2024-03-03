@@ -4,7 +4,7 @@ import { Route, Routes, Link } from 'react-router-dom'
 const Home = () => {
   return (
     <div>
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
     <div className="hero-content flex-col lg:flex-row-reverse">
       <img src="https://daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg" className="max-w-sm rounded-lg shadow-2xl" />
       <div>
