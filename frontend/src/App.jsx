@@ -3,6 +3,7 @@ import { Route, Routes, Link, Navigate } from 'react-router-dom';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
+import Wallet from './Components/Wallet';
 
 import NotFound from './Components/Pages/404';
 import { AiOutlineMenu, AiFillHome  } from "react-icons/ai";
@@ -41,11 +42,11 @@ function App() {
               <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
               <ul className="menu p-4 w-80 min-h-full bg-black text-base-content">
                 <li>
-                  <Link to="/home"><a>
+                  <Link to="/home">
                   HOME<AiFillHome />
-                  </a></Link>
+                </Link>
                 </li>
-                <li><a>Sidebar Item 2</a></li>
+                <Link to="/wallet">WALLET</Link>
                 <li><a>Sidebar Item 1</a></li>
                 <li><a>Sidebar Item 2</a></li>
               </ul>
@@ -104,7 +105,12 @@ function App() {
 
         <Routes>
           {hasToken ? (
+            <>
+
             <Route path="/home" element={<Home />} />
+            <Route path="/wallet" element={<Wallet />} />
+            </>
+            
           ) : (
             <>
 

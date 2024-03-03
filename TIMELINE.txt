@@ -68,3 +68,7 @@ module.exports = {
 ->npm i react-toastify 
 12. INSTALL REACT-ICONS
 ->npm install react-icons
+13. SETUP REDUX 
+->npm i redux 
+->npm install react-redux
+->npm install redux-thunk
