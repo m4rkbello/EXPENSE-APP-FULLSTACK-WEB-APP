@@ -1,5 +1,5 @@
-import axios from 'axios';
-
+import api from '../../Services/Api';
+import { useNavigate } from 'react-router-dom';
 
 import {
     FETCH_USER_REQUEST,
@@ -48,10 +48,40 @@ export const fetchUserFailure = (error) => ({
 });
 
 //CREATE User 
-export const createUser = (user) => ({
-    type: CREATE_USER_REQUEST,
-    payload: user,
-});
+export const createUserPost = (userData) => {
+    return async (dispatch) => {
+      console.log("Creating user...");
+      dispatch({ type: CREATE_USER_REQUEST });
+      try {
+        const response = await api.post('http://127.0.0.1:8000/api/login', userData);
+        console.log("Create user success:", response.data);
+        dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
+        if (response.data && response.data.success) {
+            const { token } = response.data;
+    
+            // Save token to localStorage
+            localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
+    
+            // Save token to cookie
+            document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
+    
+            // Clear email and password fields
+            setEmail("");
+            setPassword("");
+          
+        
+            // Navigate to the desired route
+    
+          }
+      } catch (error) {
+          dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
+          console.error("Create user error:", error.message);
+   
+      }
+    };
+  };
+  
+  
 
 export const createUserSuccess = () => ({
     type: CREATE_USER_SUCCESS,
@@ -63,7 +93,7 @@ export const createUserFailure = (error) => ({
 });
 
 //READ User
-export const readUser = (id) => ({
+export const readUserRequest = (id) => ({
     type: READ_USER_REQUEST,
     payload: id,
 });
@@ -80,7 +110,7 @@ export const readUserFailure = (error) => ({
 
 
 //UPDATE User
-export const updateUser = (id, newUser) => ({
+export const updateUserRequest = (id, newUser) => ({
     type: UPDATE_USER_REQUEST,
     payload: {id, newUser},
 });
@@ -95,7 +125,7 @@ export const updateUserFailure = (error) => ({
 });
 
 //DELETE User
-export const deleteUser = (id) => ({
+export const deleteUserRequest = (id) => ({
     type: DELETE_USER_REQUEST,
     payload: id,
 });
