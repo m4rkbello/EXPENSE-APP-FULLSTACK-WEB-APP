@@ -50,13 +50,18 @@ export const fetchUserFailure = (error) => ({
 //CREATE User 
 export const createUserPost = (userData) => {
     return async (dispatch) => {
-      console.log("Creating user...");
+  
       dispatch({ type: CREATE_USER_REQUEST });
       try {
         const response = await api.post('http://127.0.0.1:8000/api/login', userData);
-        console.log("Create user success:", response.data);
+      
         dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
+     
         if (response.data && response.data.success) {
+       
+
+               
+            
             const { token } = response.data;
     
             // Save token to localStorage
@@ -75,7 +80,7 @@ export const createUserPost = (userData) => {
           }
       } catch (error) {
           dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
-          console.error("Create user error:", error.message);
+  
    
       }
     };
