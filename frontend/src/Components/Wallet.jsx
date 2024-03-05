@@ -61,6 +61,10 @@ function Wallet(props) {
                     ))};
 
                 </div>
+                <div className="card w-96 bg-red-100 shadow-xl">
+
+                
+            </div>
 
 
 

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
+import { createUserPost } from '../redux/actions/loginActions';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createUserPost } from '../redux/actions/loginActions';
 
 const Login = ({ createUserPost }) => {
   const [localEmail, setLocalEmail] = useState("");
@@ -11,24 +11,30 @@ const Login = ({ createUserPost }) => {
 
   const navigate = useNavigate();
 
+  const toastOptions = {
+    position: 'top-right', // Position of the toasts
+    duration: 5000, // Duration in milliseconds
+    style: {
+      // Customize the style of the toasts
+    },
+    // Other options...
+  };
+
   const handleCreateUser = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
+    event.preventDefault();
     try {
       await createUserPost({ email: localEmail, password: localPassword });
-      toast.success("User login successfully!");
+     
       window.location.reload();
       navigate("/home");
-
     } catch (error) {
-      toast.error("Email or Password is incorrect!");
-   
+      toast.error("Email and password is incorrect!");
     }
   };
   
-
   return (
     <div>
-      <ToastContainer />
+<ToastContainer />
       <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">login</div>

@@ -72,3 +72,5 @@ module.exports = {
 ->npm i redux 
 ->npm install react-redux
 ->npm install redux-thunk
+14. ADD NEW TOASTER
+->npm i react-hot-toast

@@ -24,7 +24,6 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
-
         $response = [
             'success' => true,
             'message' => 'User has new token!',

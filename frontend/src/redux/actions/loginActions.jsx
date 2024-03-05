@@ -59,13 +59,13 @@ export const createUserPost = (userData) => {
      
         if (response.data && response.data.success) {
             const { token } = response.data;
-    
+            
             // Save token to localStorage
             localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
     
             // Save token to cookie
             document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
-    
+            document.cookie = `M4rkBelloFullstackTime=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
             //para e empty ug balik ang mga input fields
             setEmail("");
             setPassword("");
@@ -73,8 +73,7 @@ export const createUserPost = (userData) => {
           }
       } catch (error) {
           dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
-  
-   
+          console.log("DATA")
       }
     };
   };

@@ -69,19 +69,18 @@ function App() {
         <div className="flex-none" style={{ display: 'flex' }}>
           <ul className="menu menu-horizontal px-1">
             {hasToken.length !== 0 && hasToken ? (
-              <div>
-                <ul className="menu menu-horizontal px-1">
-                  <li>
-                    <details>
-                      <summary>OHAHA</summary>
-                      <ul className="bg-base-100 rounded-t-none">
-                        <li>Link 1</li>
-                        <li>Link 2</li>
-                      </ul>
-                    </details>
-                  </li>
-                </ul>
-              </div>
+             <div>
+             <div className="avatar online">
+             <div className="w-16 rounded-full">
+               <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+             </div>
+           </div>
+           <div className="avatar offline">
+             <div className="w-16 rounded-full">
+               <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+             </div>
+           </div>
+             </div>
             ) : (
               <div>
                 <ul className="menu menu-horizontal px-1 text-white text-base">
