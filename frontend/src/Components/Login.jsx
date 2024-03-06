@@ -8,24 +8,22 @@ import 'react-toastify/dist/ReactToastify.css';
 const Login = ({ loginUserPost }) => {
   const [localEmail, setLocalEmail] = useState("");
   const [localPassword, setLocalPassword] = useState("");
-
   const navigate = useNavigate();
 
   const handleCreateUser = async (event) => {
     event.preventDefault();
     try {
       await loginUserPost({ email: localEmail, password: localPassword });
-     
-      window.location.reload();
+      // Navigate to home page upon successful login
       navigate("/home");
     } catch (error) {
-      toast.error("Email and password is incorrect!");
+      toast.error("Email and password are incorrect!");
     }
   };
-  
+
   return (
     <div>
-<ToastContainer />
+      <ToastContainer />
       <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">login</div>
@@ -48,23 +46,13 @@ const Login = ({ loginUserPost }) => {
               </div>
               <div className="form-control mt-6">
                 <button className="btn btn-primary" onClick={handleCreateUser}>Login</button>
-                
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-const mapStateToProps = (state) => ({
-  // email: state.login.email, // Assuming you have a reducer called 'login' that holds email and password
-  // password: state.login.password,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loginUserPost: (userData) => dispatch(loginUserPost(userData))
-});
-
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(null, { loginUserPost })(Login);

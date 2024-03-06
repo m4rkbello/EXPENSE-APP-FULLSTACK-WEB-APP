@@ -76,3 +76,8 @@ module.exports = {
 ->npm install redux-thunk
 14. ADD NEW TOASTER
 ->npm i react-hot-toast
+
+15. ADD CROSS ORIGIN RESOURCES SHARING 
+->composer require fruitcake/laravel-cors
+->php artisan vendor:publish --tag="cors"
+16. INSTALL CORS FOR LARAVEL 
