@@ -1,29 +1,20 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { createUserPost } from '../redux/actions/loginActions';
+import { loginUserPost } from '../redux/actions/loginActions';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Login = ({ createUserPost }) => {
+const Login = ({ loginUserPost }) => {
   const [localEmail, setLocalEmail] = useState("");
   const [localPassword, setLocalPassword] = useState("");
 
   const navigate = useNavigate();
 
-  const toastOptions = {
-    position: 'top-right', // Position of the toasts
-    duration: 5000, // Duration in milliseconds
-    style: {
-      // Customize the style of the toasts
-    },
-    // Other options...
-  };
-
   const handleCreateUser = async (event) => {
     event.preventDefault();
     try {
-      await createUserPost({ email: localEmail, password: localPassword });
+      await loginUserPost({ email: localEmail, password: localPassword });
      
       window.location.reload();
       navigate("/home");
@@ -73,7 +64,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createUserPost: (userData) => dispatch(createUserPost(userData))
+  loginUserPost: (userData) => dispatch(loginUserPost(userData))
 });
 
 export default connect(null, mapDispatchToProps)(Login);

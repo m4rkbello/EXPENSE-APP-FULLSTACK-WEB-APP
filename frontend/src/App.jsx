@@ -6,7 +6,7 @@ import Register from './Components/Register';
 import Wallet from './Components/Wallet';
 
 import NotFound from './Components/Pages/404';
-import { AiOutlineMenu, AiFillHome  } from "react-icons/ai";
+import { AiOutlineMenu, AiFillHome } from "react-icons/ai";
 
 function App() {
   const [hasToken, setHasToken] = useState(false);
@@ -17,7 +17,6 @@ function App() {
 
     if (token) {
       setHasToken(true);
-
     }
   }, []);
 
@@ -43,44 +42,33 @@ function App() {
               <ul className="menu p-4 w-80 min-h-full bg-black text-base-content">
                 <li>
                   <Link to="/home">
-                  HOME<AiFillHome />
-                </Link>
+                    HOME<AiFillHome />
+                  </Link>
                 </li>
-                <Link to="/wallet">WALLET</Link>
+                <li>
+                  <Link to="/wallet">WALLET</Link>
+                </li>
                 <li><a>Sidebar Item 1</a></li>
                 <li><a>Sidebar Item 2</a></li>
               </ul>
             </div>
           </div>
-
         ) : (
-
-
           <div className="flex-1">
             <Link to="/" className="btn btn-ghost text-xl">pullsnack</Link>
           </div>
-
         )
         }
-
-
-
-
         <div className="flex-none" style={{ display: 'flex' }}>
           <ul className="menu menu-horizontal px-1">
             {hasToken.length !== 0 && hasToken ? (
-             <div>
-             <div className="avatar online">
-             <div className="w-16 rounded-full">
-               <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-             </div>
-           </div>
-           <div className="avatar offline">
-             <div className="w-16 rounded-full">
-               <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-             </div>
-           </div>
-             </div>
+              <div>
+                <div className="avatar online">
+                  <div className="w-14 rounded-full">
+                    <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                  </div>
+                </div>
+              </div>
             ) : (
               <div>
                 <ul className="menu menu-horizontal px-1 text-white text-base">
@@ -100,25 +88,19 @@ function App() {
       </div>
 
       <div className='max-w-7xl mx-auto mt-6'>
-
-
         <Routes>
           {hasToken ? (
             <>
 
-            <Route path="/home" element={<Home />} />
-            <Route path="/wallet" element={<Wallet />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/wallet" element={<Wallet />} />
             </>
-            
+
           ) : (
             <>
 
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              {/**
-              
-              <Route path="*" element={<NotFound />} />
-            */}
 
             </>
           )}

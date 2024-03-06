@@ -23,11 +23,7 @@ function Wallet(props) {
     const studentsDetails = extractStudentsData(studentsData);
     console.log("FUNCTION SA STUDENTDATA", extractStudentsData(studentsData));
 
-
-
-
     useEffect(() => {
-        // Dispatch the fetchStudentRequest action when the component mounts
         props.fetchStudentRequest();
     }, []);
 
@@ -36,41 +32,18 @@ function Wallet(props) {
             <div className="flex">
                 <div className="flex-none w-64 h-14">
                 </div>
-                
                 <div className="flex-1 w-64 ...">
-                    {studentsDetails !== 0 && studentsDetails.map((student, index) => (
-                       
-                            <div className="flex-1 w-64 ... pt-10">
-
-                                <div key={index} className="card w-96 bg-red-100 shadow-xl">
-                                    <div className="card-body">
-                                        <span className="card-title text-black text-7xl">
-                                            {student.id}
-                                        </span>
-                                        <p>{student.std_fname}  {student.std_lname} {student.std_address}</p>
-                                        <p>{student.std_address} {student.std_age} {student.status}</p>
-                                        
-                                        <div className="card-actions justify-end">
-                                            <button className="btn btn-primary">Buy Now</button>
-                                        </div>
-                                    </div>
-                                </div>
-
+                    <div className="flex-1 w-64 ... pt-10">
+                        <div className="card w-96 h-30 bg-red-100 shadow-xl">
+                            <div className="card-body">
+                                <span className="card-title text-black text-7xl">
+                                User
+                                </span>
                             </div>
-                      
-                    ))};
-
+                        </div>
+                    </div>
                 </div>
-                <div className="card w-96 bg-red-100 shadow-xl">
-
-                
             </div>
-
-
-
-            </div>
-
-
         </div>
     )
 }

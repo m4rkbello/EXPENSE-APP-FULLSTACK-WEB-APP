@@ -32,6 +32,8 @@ node 18.17.0
 -> npm i
 7. INSTALL REACT-ROUTER-DOM 
 ->npm i react-router-dom
+7.1 ADD ENV FILE 
+_=-
 8. INSTALL AXIOS FOR HTTP REQUEST
 ->npm i axios
 9. INSTALL TAILWINDCSS USING VITE 

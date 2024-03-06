@@ -48,7 +48,37 @@ export const fetchUserFailure = (error) => ({
 });
 
 //CREATE User 
-export const createUserPost = (userData) => {
+export const loginUserPost = (userData) => {
+    return async (dispatch) => {
+  
+      dispatch({ type: CREATE_USER_REQUEST });
+      try {
+        const response = await api.post('http://127.0.0.1:8000/api/login', userData);
+      
+        dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
+     
+        if (response.data && response.data.success) {
+            const { token } = response.data;
+
+            // Save token to localStorage
+            localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
+    
+            // Save token to cookie
+            document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
+            document.cookie = `M4rkBelloFullstackTime=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
+            //para e empty ug balik ang mga input fields
+            setEmail("");
+            setPassword("");
+          
+          }
+      } catch (error) {
+          dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
+          console.log("DATA")
+      }
+    };
+  };
+
+  export const registerUserPost = (userData) => {
     return async (dispatch) => {
   
       dispatch({ type: CREATE_USER_REQUEST });
