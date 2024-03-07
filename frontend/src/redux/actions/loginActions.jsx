@@ -50,68 +50,54 @@ export const fetchUserFailure = (error) => ({
 //CREATE User 
 export const loginUserPost = (userData) => {
     return async (dispatch) => {
-      dispatch({ type: CREATE_USER_REQUEST });
-      try {
-        const response = await api.post('/api/login', userData);
-        
-        if (response.status === 200) {
-          dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
-          
-          const { token } = response.data;
-  
-          // Save token to localStorage
-          localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
-  
-          // Save token to cookie
-          document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
-          document.cookie = `M4rkBelloFullstackTime=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
-  
-          // Clear local email and password state
-          // This is optional based on your application's requirements
-          // setLocalEmail("");
-          // setLocalPassword("");
-        } else {
-          dispatch({ type: CREATE_USER_FAILURE, payload: "Login failed" });
-        }
-      } catch (error) {
-        dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
-        console.log("Login error:", error);
-      }
-    };
-  };
-  
+        dispatch({ type: CREATE_USER_REQUEST });
+        try {
+            const response = await api.post('/api/login', userData);
 
-//   export const registerUserPost = (userData) => {
-//     return async (dispatch) => {
-  
-//       dispatch({ type: CREATE_USER_REQUEST });
-//       try {
-//         const response = await api.post('http://127.0.0.1:8000/api/login', userData);
-      
-//         dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
-     
-//         if (response.data && response.data.success) {
-//             const { token } = response.data;
-            
-//             // Save token to localStorage
-//             localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
-    
-//             // Save token to cookie
-//             document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
-//             document.cookie = `M4rkBelloFullstackTime=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
-//             //para e empty ug balik ang mga input fields
-//             setEmail("");
-//             setPassword("");
-          
-//           }
-//       } catch (error) {
-//           dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
-//           console.log("DATA")
-//       }
-//     };
-//   };
-  
-  
+            if (response.status === 200) {
+                dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
+
+                const { token } = response.data;
+
+                // Save token to localStorage
+                localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
+
+                // Save token to cookie
+                document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
+                document.cookie = `M4rkBelloFullstackTime=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
+
+                // Clear local email and password state
+                // This is optional based on your application's requirements
+                // setLocalEmail("");
+                // setLocalPassword("");
+            } else {
+                dispatch({ type: CREATE_USER_FAILURE, payload: "Login failed" });
+            }
+        } catch (error) {
+            dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
+            console.log("Login error:", error);
+        }
+    };
+};
+
+
+export const registerUserPost = (userData) => {
+    return async (dispatch) => {
+
+        dispatch({ type: CREATE_USER_REQUEST });
+        try {
+            const response = await api.post('/api/register', userData);
+
+            dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
+
+        } catch (error) {
+            dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
+            console.log("DATA")
+        }
+    };
+};
+
+
 
 export const createUserSuccess = () => ({
     type: CREATE_USER_SUCCESS,
@@ -142,7 +128,7 @@ export const readUserFailure = (error) => ({
 //UPDATE User
 export const updateUserRequest = (id, newUser) => ({
     type: UPDATE_USER_REQUEST,
-    payload: {id, newUser},
+    payload: { id, newUser },
 });
 
 export const updateUserSuccess = () => ({
@@ -162,12 +148,12 @@ export const deleteUserRequest = (id) => ({
 
 export const deleteUserSuccess = () => ({
     type: DELETE_USER_SUCCESS,
-}); 
+});
 
 export const deleteUserFailure = (error) => ({
     type: DELETE_USER_FAILURE,
     payload: error,
-}); 
+});
 
 
 

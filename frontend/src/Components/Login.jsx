@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { loginUserPost } from '../redux/actions/loginActions';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Toaster } from 'react-hot-toast';
 
 const Login = ({ loginUserPost }) => {
   const [localEmail, setLocalEmail] = useState("");
@@ -15,6 +16,8 @@ const Login = ({ loginUserPost }) => {
     try {
       await loginUserPost({ email: localEmail, password: localPassword });
       // Navigate to home page upon successful login
+
+      window.location.reload();
       navigate("/home");
     } catch (error) {
       toast.error("Email and password are incorrect!");
@@ -23,7 +26,7 @@ const Login = ({ loginUserPost }) => {
 
   return (
     <div>
-      <ToastContainer />
+    <ToastContainer />
       <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">login</div>
