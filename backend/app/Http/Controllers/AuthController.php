@@ -80,5 +80,36 @@ class AuthController extends Controller
         "message" => 'Logout successfully!'
     ];
 }
+
+public function ResetPassword(Request $request){
+    $request->validate([
+        'email' => 'require|email'
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if(!$user){
+        return response()->json([
+            'success' => false,
+            'message' => 'User not found!'
+        ], 404);
+
+    $token = Str::random(60);
+
+    DB::table('password_resets')->updateOrInsert(
+        ['email' => $user->email],
+        ['email' => $user->email, 'token' => Hash::make($token), 'created_at' => now()]
+    );
+
+    Mail::to($user->email)->send(new ResetPasswordMail($token));
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Password reset link sent to your email'
+    ]);
+
+    
+    }
+}
    
 }

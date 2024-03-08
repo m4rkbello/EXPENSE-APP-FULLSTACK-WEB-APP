@@ -4,6 +4,8 @@ import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
 import Wallet from './Components/Wallet';
+import ResetPassword from './Components/Auth/ResetPassword';
+
 
 import NotFound from './Components/Pages/404';
 import { AiOutlineMenu, AiFillHome } from "react-icons/ai";
@@ -78,6 +80,8 @@ function App() {
                   <li className='shadow-2xl '>
                     <Link to="/register">Register</Link>
                   </li>
+                  <li className='shadow-2xl '>
+                </li>
                 </ul>
               </div>
             )}
@@ -101,6 +105,7 @@ function App() {
 
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/resetpassword" element={<ResetPassword />} />
 
             </>
           )}

@@ -80,4 +80,5 @@ module.exports = {
 15. ADD CROSS ORIGIN RESOURCES SHARING 
 ->composer require fruitcake/laravel-cors
 ->php artisan vendor:publish --tag="cors"
-16. INSTALL CORS FOR LARAVEL 
+16. ADD EMAIL 
+->php artisan make:mail ForgotPasswordMail

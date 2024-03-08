@@ -20,19 +20,19 @@ const Register = ({registerUserPost}) => {
         // Navigate to home page upon successful login
      
    
-        
+      window.location.reload();
+      navigate("/login");
       } catch (error) {
         toast.error("Email and password are incorrect!");
       }
     };
 
-
   return (
     <div>
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
     <div className="hero-content flex-col lg:flex-row-reverse">
       <div className="text-center lg:text-left">
-
+ha
       </div>
       <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 md:flex">
         <form className="card-body">
@@ -41,7 +41,7 @@ const Register = ({registerUserPost}) => {
           <span className="label-text">Name</span>
         </label>
         <input type="text" value={localName} onChange={(e) => setLocalName(e.target.value)} placeholder="name" className="input input-bordered" required />
-        <span className="text-red-500 text-xs">error</span>
+    
       </div>
           <div className="form-control">
             <label className="label">
@@ -49,7 +49,7 @@ const Register = ({registerUserPost}) => {
             </label>
             <input type="email" value={localEmail} onChange={(e) => setLocalEmail(e.target.value)} placeholder="email" className="input input-bordered" required />
             <label className="label">
-            <span className="text-red-500 text-xs">error</span>
+        
           </label>
           </div>
           <div className="form-control">
@@ -57,16 +57,16 @@ const Register = ({registerUserPost}) => {
               <span className="label-text">Password</span>
             </label>
             <input type="password" value={localPassword} onChange={(e) => setLocalPassword(e.target.value)} placeholder="password" className="input input-bordered" required />
-            <span className="text-red-500 text-xs">error</span>
+        
           </div>
           <div className="form-control">
           <label className="label">
             <span className="label-text">Confirm Password</span>
           </label>
           <input type="password" value={localConfirmPassword} onChange={(e) => setLocalConfirmPassword(e.target.value)} placeholder="password" className="input input-bordered" required />
-          <span className="text-red-500 text-xs">error</span>
+      
           <label className="label">
-            <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+            <Link to="/resetpassword" className="label-text-alt link link-hover">Forgot password?</Link>
           </label>
         </div>
           <div className="form-control mt-6">
