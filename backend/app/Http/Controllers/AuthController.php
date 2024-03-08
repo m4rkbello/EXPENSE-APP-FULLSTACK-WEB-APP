@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ForgotPasswordMail;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 
 class AuthController extends Controller
 {
@@ -43,14 +49,14 @@ class AuthController extends Controller
 
         $user = User::where('email', $data['email'])->first();
 
-        if(!$user || !Hash::check($data['password'], $user->password))
-        {
+        if (!$user || !Hash::check($data['password'], $user->password)) {
             return response([
                 'success' => false,
                 'status' => '401',
                 'message' => 'email or password is incorrect!'
             ], 401);
-        };
+        }
+        ;
 
         $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
 
@@ -64,52 +70,41 @@ class AuthController extends Controller
         return response($response, 200);
     }
 
-    // public function logout(Request $request)
-    // {
-    //     auth()->user()->token()->delete();
-    //     return [
-    //         "message" => 'Logout successfully!'
-    //     ];
-    // }
 
     public function logout(Request $request)
-{
-    Auth::user()->currentAccessToken()->delete();
-    return [
-        "success" => true,
-        "message" => 'Logout successfully!'
-    ];
-}
-
-public function ResetPassword(Request $request){
-    $request->validate([
-        'email' => 'require|email'
-    ]);
-
-    $user = User::where('email', $request->email)->first();
-
-    if(!$user){
-        return response()->json([
-            'success' => false,
-            'message' => 'User not found!'
-        ], 404);
-
-    $token = Str::random(60);
-
-    DB::table('password_resets')->updateOrInsert(
-        ['email' => $user->email],
-        ['email' => $user->email, 'token' => Hash::make($token), 'created_at' => now()]
-    );
-
-    Mail::to($user->email)->send(new ResetPasswordMail($token));
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Password reset link sent to your email'
-    ]);
-
-    
+    {
+        Auth::user()->currentAccessToken()->delete();
+        return [
+            "success" => true,
+            "message" => 'Logout successfully!'
+        ];
     }
-}
-   
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+    
+        $user = User::where('email', $request->email)->first();
+    
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+    
+        $token = Str::random(60);
+    
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $user->email],
+            ['token' => $token, 'created_at' => Carbon::now()]
+        );
+    
+        // Send the email with the reset password link
+        $mailSent = Mail::to($user->email)->send(new ForgotPasswordMail($token));
+    
+        if ($mailSent) {
+            return response()->json(['message' => 'Reset password email sent'], 200);
+        } else {
+            return response()->json(['message' => 'Failed to send reset password email'], 500);
+        }
+    }
+    
 }

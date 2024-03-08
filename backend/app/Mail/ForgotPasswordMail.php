@@ -37,6 +37,7 @@ class ForgotPasswordMail extends Mailable
     public function build()
     {
         return $this->subject('Reset Your Password')
-                    ->view('emails.forgot_password');
+                    ->view('emails.reset_password') // Adjusted view name to match the actual file
+                    ->text('emails.reset_password_plain'); // If you have a plain text version of the email
     }
 }

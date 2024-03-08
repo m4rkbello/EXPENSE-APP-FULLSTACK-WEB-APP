@@ -6,6 +6,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AuthController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,6 +24,9 @@ Route::get('/students/search/{name}', [StudentController::class, 'search']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/resetpassword', [AuthController::class, 'resetPassword']);
+
+
 
 
 Route::group(['middleware' => ['auth:sanctum']], function(){

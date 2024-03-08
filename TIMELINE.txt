@@ -81,4 +81,6 @@ module.exports = {
 ->composer require fruitcake/laravel-cors
 ->php artisan vendor:publish --tag="cors"
 16. ADD EMAIL 
-->php artisan make:mail ForgotPasswordMail
+->php artisan make:mail ForgotPasswordMail 
+17. ADD MODEL FOR PASSWORDTOKEN
+->php artisan make:model PasswordResetToken
