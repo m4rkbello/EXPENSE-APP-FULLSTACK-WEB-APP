@@ -7,7 +7,7 @@ function ResetPassword() {
                 <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
                     <div className="hero-content flex-col lg:flex-row-reverse">
                         <div className="text-center lg:text-left">
-
+                            resetpasword
                         </div>
                         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 md:flex">
                             <form className="card-body">
