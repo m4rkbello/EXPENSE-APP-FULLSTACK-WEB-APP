@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+// use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AuthController;
 
@@ -25,8 +25,8 @@ Route::get('/students/search/{name}', [StudentController::class, 'search']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/resetpassword', [AuthController::class, 'resetPassword']);
+Route::get('/users', [AuthController::class, 'index']);
 
-Route::post('/resetpassword111', [AuthController::class, 'resetPassword11']);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function(){

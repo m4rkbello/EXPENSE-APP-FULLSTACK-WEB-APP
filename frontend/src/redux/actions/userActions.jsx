@@ -1,4 +1,4 @@
-import api from '../../Services/Api';
+import api from '../../Services/Api.jsx';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -17,7 +17,7 @@ import {
     DELETE_USER_REQUEST,
     DELETE_USER_FAILURE,
     DELETE_USER_SUCCESS
-} from '../types/loginTypes.jsx';
+} from '../types/userTypes.jsx';
 
 //FETCH STUDENT
 export const fetchUserRequest = () => {

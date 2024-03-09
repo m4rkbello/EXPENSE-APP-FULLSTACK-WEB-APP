@@ -97,8 +97,6 @@ class AuthController extends Controller
             ['token' => $token, 'created_at' => Carbon::now()]
         );
 
-      
-    
         // Send the email with the reset password link
         $mailSent = Mail::to($user->email)->send(new ForgotPasswordMail($token));
     
@@ -107,6 +105,10 @@ class AuthController extends Controller
         } else {
             return response()->json(['message' => 'Failed to send reset password email'], 500);
         }
+    }
+
+    public function index(){
+          return User::all();
     }
     
 }

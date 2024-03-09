@@ -14,7 +14,7 @@ import {
     DELETE_USER_REQUEST,
     DELETE_USER_SUCCESS,
     DELETE_USER_FAILURE,
-  } from '../types/loginTypes.jsx';
+  } from '../types/userTypes.jsx';
   
   const initialState = {
     users: [],

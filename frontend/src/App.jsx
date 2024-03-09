@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, Link, Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
 import Wallet from './Components/Wallet';
 import ResetPassword from './Components/Auth/ResetPassword';
-
-
 import NotFound from './Components/Pages/404';
 import { AiOutlineMenu, AiFillHome } from "react-icons/ai";
 
@@ -115,4 +114,22 @@ function App() {
   );
 }
 
-export default App;
+
+
+function mapStateToProps(state) {
+  console.log("DATA", state.studentReducer)
+  return {
+      studentData: state.studentReducer
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      fetchStudentRequest: () => dispatch(fetchStudentRequest()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+
+
