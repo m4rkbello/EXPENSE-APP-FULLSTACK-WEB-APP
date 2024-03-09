@@ -25,9 +25,9 @@ export const fetchUserRequest = () => {
         console.log("Fetching students...");
         dispatch({ type: FETCH_USER_REQUEST });
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/students');
-            console.log("Fetch students success:", response.data);
+            const response = await api.get('http://127.0.0.1:8000/api/users');
             dispatch({ type: FETCH_USER_SUCCESS, payload: response.data });
+            console.log("FETCH USER DATAS!", response.data);
         } catch (error) {
             console.error("Fetch students error:", error.message);
             dispatch({ type: FETCH_USER_FAILURE, payload: error.message });

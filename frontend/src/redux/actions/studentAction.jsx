@@ -17,7 +17,7 @@ import {
     DELETE_STUDENT_REQUEST,
     DELETE_STUDENT_FAILURE,
     DELETE_STUDENT_SUCCESS
-} from '../redux/types.jsx';
+} from '../types/studentTypes.jsx';
 
 //FETCH STUDENT
 export const fetchStudentRequest = () => {

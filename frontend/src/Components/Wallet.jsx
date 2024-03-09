@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes, Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { fetchStudentRequest } from '../redux/actions';
+import { fetchStudentRequest } from '../redux/actions/studentAction';
 import { useEffect } from 'react';
 
 

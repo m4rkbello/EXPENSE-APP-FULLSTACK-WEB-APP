@@ -8,17 +8,23 @@ import Wallet from './Components/Wallet';
 import ResetPassword from './Components/Auth/ResetPassword';
 import NotFound from './Components/Pages/404';
 import { AiOutlineMenu, AiFillHome } from "react-icons/ai";
+import {fetchUserRequest} from './redux/actions/userActions'
 
-function App() {
+function App(props) {
+  console.log("HOY GANA!", props&&props);
+ 
   const [hasToken, setHasToken] = useState(false);
 
   useEffect(() => {
+
     // Check if token exists in localStorage or cookies
     const token = localStorage.getItem('M4rkbelloFullstackPersonalAccessToken') && getCookie('M4rkbelloFullstackPersonalAccessToken');
 
     if (token) {
       setHasToken(true);
     }
+    props.fetchUserRequest();
+
   }, []);
 
   function getCookie(name) {
@@ -30,7 +36,7 @@ function App() {
   return (
     <div className='shadow-2xl .. bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... min-h-screen'>
       <div className="navbar shadow-2xl .. bg-black">
-        {hasToken.length !== 0 && hasToken ? (
+        {hasToken.length !== 0 && hasToken.length > 0 ? (
           <div className="drawer">
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
@@ -117,15 +123,15 @@ function App() {
 
 
 function mapStateToProps(state) {
-  console.log("DATA", state.studentReducer)
+  console.log("DATA", state.userReducer)
   return {
-      studentData: state.studentReducer
+      userData: state.userReducer
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      fetchStudentRequest: () => dispatch(fetchStudentRequest()),
+    fetchUserRequest: () => dispatch(fetchUserRequest()),
   };
 };
 
