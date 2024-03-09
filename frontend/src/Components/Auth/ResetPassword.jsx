@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Import Axios for making HTTP requests
+import axios from 'axios';
 
 function ResetPassword() {
     const [email, setEmail] = useState('');
@@ -22,13 +22,16 @@ function ResetPassword() {
                 <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
                     <div className="hero-content flex-col lg:flex-row-reverse">
                         <div className="text-center lg:text-left">
-                            reset password
+                            ...
                         </div>
                         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 md:flex">
                             <form className="card-body" onSubmit={handleSubmit}>
+                            <div className='text-lg text-center'>Reset Password...</div>
                                 <div className="form-control">
                                     <label className="label">
+                                  
                                         <span className="label-text">Email</span>
+
                                     </label>
                                     <input 
                                         type="email" 

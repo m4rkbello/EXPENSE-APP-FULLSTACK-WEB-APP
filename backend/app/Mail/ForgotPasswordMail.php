@@ -36,8 +36,12 @@ class ForgotPasswordMail extends Mailable
      */
     public function build()
     {
+        $resetLink = 'http://localhost:5173/login' . $this->resetToken;
+    
         return $this->subject('Reset Your Password')
-                    ->view('emails.reset_password') // Adjusted view name to match the actual file
-                    ->text('emails.reset_password_plain'); // If you have a plain text version of the email
+                    ->view('emails.mail', [
+                        'resetLink' => $resetLink
+                    ]);
     }
+    
 }

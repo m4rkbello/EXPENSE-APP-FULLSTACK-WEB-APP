@@ -17,9 +17,7 @@ const Register = ({registerUserPost}) => {
       event.preventDefault();
       try {
         await registerUserPost({name: localName, email: localEmail, password: localPassword, password_confirmation: localConfirmPassword });
-        // Navigate to home page upon successful login
-     
-   
+       
       window.location.reload();
       navigate("/login");
       } catch (error) {
@@ -31,11 +29,12 @@ const Register = ({registerUserPost}) => {
     <div>
     <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
     <div className="hero-content flex-col lg:flex-row-reverse">
-      <div className="text-center lg:text-left">
-ha
-      </div>
+    <div className="text-center lg:text-left">
+                            ...
+                        </div>
       <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 md:flex">
         <form className="card-body">
+        <span className="text-center text-3xl py-3 px-3">REGISTER</span>
         <div className="form-control">
         <label className="label">
           <span className="label-text">Name</span>

@@ -96,6 +96,8 @@ class AuthController extends Controller
             ['email' => $user->email],
             ['token' => $token, 'created_at' => Carbon::now()]
         );
+
+      
     
         // Send the email with the reset password link
         $mailSent = Mail::to($user->email)->send(new ForgotPasswordMail($token));

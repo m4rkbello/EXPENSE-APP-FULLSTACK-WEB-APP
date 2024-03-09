@@ -28,11 +28,14 @@ const Login = ({ loginUserPost }) => {
     <div>
     <ToastContainer />
       <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">login</div>
+        <div className="hero-content flex-col  lg:flex-row-reverse">
+        <div className="text-center lg:text-left">
+        ...
+    </div>
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 md:flex">
-            <form className="card-body">
-              <div className="form-control">
+          <form className="card-body">
+          <div className="form-control">
+          <span className="text-center text-4xl py-3 px-3">LOGIN</span>
                 <label className="label">
                   <span className="label-text">Email</span>
                 </label>
@@ -44,7 +47,7 @@ const Login = ({ loginUserPost }) => {
                 </label>
                 <input type="password" value={localPassword} onChange={(e) => setLocalPassword(e.target.value)} placeholder="password" className="input input-bordered" required />
                 <label className="label">
-                  <Link to="/home" className="label-text-alt link link-hover">Forgot password?</Link>
+                  <Link to="/register" className="label-text-alt link link-hover">Create an Account?</Link>
                 </label>
               </div>
               <div className="form-control mt-6">
