@@ -5,10 +5,12 @@ import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
 import Wallet from './Components/Employee';
+
 import ResetPassword from './Components/User/ResetUser/FindUserEmail';
 import NotFound from './Components/Pages/404';
 import { AiOutlineMenu, AiFillHome } from "react-icons/ai";
 import {fetchUserRequest} from './redux/actions/userActions'
+import UserProfile from './Components/User/Profile/UserProfile';
 
 function App(props) {
   console.log("HOY GANA!", props&&props);
@@ -98,11 +100,15 @@ function App(props) {
           <ul className="menu menu-horizontal px-1">
             {hasToken.length !== 0 && hasToken ? (
               <div>
-                <div className="avatar online">
-                  <div className="w-14 rounded-full">
-                    <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                  </div>
-                </div>
+              <Link to="/profile">
+              <div className="avatar online">
+              <div className="w-14 rounded-full">
+              
+              <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              </div>
+              </div>
+              </Link>
+                  
               </div>
             ) : (
               <div>
@@ -131,6 +137,7 @@ function App(props) {
 
               <Route path="/home" element={<Home />} />
               <Route path="/wallet" element={<Wallet />} />
+              <Route path="profile" element={<UserProfile />} />
             </>
 
           ) : (
