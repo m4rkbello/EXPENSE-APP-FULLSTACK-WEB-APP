@@ -5,7 +5,7 @@ import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
 import Wallet from './Components/Employee';
-import ResetPassword from './Components/User/FindUser';
+import ResetPassword from './Components/User/ResetUser/FindUser';
 import NotFound from './Components/Pages/404';
 import { AiOutlineMenu, AiFillHome } from "react-icons/ai";
 import {fetchUserRequest} from './redux/actions/userActions'
