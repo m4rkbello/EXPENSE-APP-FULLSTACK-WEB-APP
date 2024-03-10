@@ -26,7 +26,7 @@ function ResetPassword() {
                         </div>
                         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 md:flex">
                             <form className="card-body" onSubmit={handleSubmit}>
-                            <div className='text-lg text-center'>Reset Password...</div>
+                            <div className='text-3xl text-center'>Find account</div>
                                 <div className="form-control">
                                     <label className="label">
                                   
