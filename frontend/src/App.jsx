@@ -62,7 +62,7 @@ function App(props) {
   
 
   return (
-    <div className='shadow-2xl .. bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... min-h-screen'>
+    <div className='shadow-2xl bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% min-h-screen'>
       <div className="navbar shadow-2xl .. bg-black">
         {hasToken.length !== 0 && hasToken ? (
           <div className="drawer">
