@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgotPasswordMail;
 use App\Models\User;
+
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -108,7 +109,19 @@ class AuthController extends Controller
     }
 
     public function index(){
-          return User::all();
+
+        $users = User::all();
+        $personal_access_token = DB::table('personal_access_tokens')->get();
+
+        $response = [
+            "success" => true,
+            "message" => 'All data of users and personal_access_token',
+            "users" => $users,
+            "personal_access_token" => $personal_access_token
+        ];
+
+        return response($response, 200);
+
     }
     
 }

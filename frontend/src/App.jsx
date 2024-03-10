@@ -19,19 +19,47 @@ function App(props) {
 
     // Check if token exists in localStorage or cookies
     const token = localStorage.getItem('M4rkbelloFullstackPersonalAccessToken') && getCookie('M4rkbelloFullstackPersonalAccessToken');
-
+    console.log("DATA LOCALSTORAGE!", token);
     if (token) {
       setHasToken(true);
     }
+
     props.fetchUserRequest();
 
   }, []);
-
+  
   function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
   }
+
+
+  // const userCollection = props?.userData?.users?.[0]?.personal_access_token;
+  // console.log("USER NA !", userCollection);
+  
+  // function userAuth(userCollection) {
+  //   userIsAuthenticated = [];
+  
+  //   // Check if userCollection is an array before iterating
+  //   if (Array.isArray(userCollection)) {
+  //     for (let ez = 0; ez < userCollection.length; ez++) {
+  //       if (userCollection[ez]) {
+  //         user = userCollection[ez];
+  //         userIsAuthenticated.push(user);
+  //       }
+  //     }
+  //   }
+  
+  //   return userIsAuthenticated;
+  // }
+  
+  // const userAuthFiltered = userAuth(userCollection);
+  // console.log("USER NA FILTER TOKEN BASE TOKEN", userAuthFiltered);
+  
+  
+
+  
 
   return (
     <div className='shadow-2xl .. bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ... min-h-screen'>
@@ -123,7 +151,7 @@ function App(props) {
 
 
 function mapStateToProps(state) {
-  console.log("DATA", state.userReducer)
+  console.log("DATA", state.userReducer);
   return {
       userData: state.userReducer
   };

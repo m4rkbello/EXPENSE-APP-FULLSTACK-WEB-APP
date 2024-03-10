@@ -54,8 +54,9 @@ export const loginUserPost = (userData) => {
         try {
             const response = await api.post('/api/login', userData);
 
-            if (response.status === 200) {
+           
                 dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
+                console.log("RESPONSE SA LOGIN!", response.data);
 
                 const { token } = response.data;
 
@@ -70,9 +71,7 @@ export const loginUserPost = (userData) => {
                 // This is optional based on your application's requirements
                 // setLocalEmail("");
                 // setLocalPassword("");
-            } else {
-                dispatch({ type: CREATE_USER_FAILURE, payload: "Login failed" });
-            }
+          
         } catch (error) {
             dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
             console.log("Login error:", error);
