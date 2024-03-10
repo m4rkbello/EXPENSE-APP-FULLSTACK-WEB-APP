@@ -31,6 +31,21 @@ function Wallet(props) {
 
     return (
         <div>
+        {/* You can open the modal using document.getElementById('ID').showModal() method */}
+
+<dialog id="my_modal_3" className="modal">
+  <div className="modal-box">
+    <form method="dialog">
+      {/* if there is a button in form, it will close the modal */}
+      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      <h3 className="font-bold text-lg">EDIT STUDENT</h3>
+      <div className='justify-items-end'>
+      <button className="btn">Close</button>
+      </div>
+      </form>
+
+  </div>
+</dialog>
             <div className="flex">
                 <div className="flex-none w-64 h-14">
                 </div>
@@ -87,7 +102,7 @@ function Wallet(props) {
                                         <td>
                                             <div className="join join-vertical lg:join-horizontal">
                                                 <button className="btn join-item">View</button>
-                                                <button className="btn join-item">Edit</button>
+                                                <button className="btn join-item" onClick={()=>document.getElementById('my_modal_3').showModal()}>Edit</button>
                                                 <button className="btn join-item">Delete</button>
                                             </div>
 
