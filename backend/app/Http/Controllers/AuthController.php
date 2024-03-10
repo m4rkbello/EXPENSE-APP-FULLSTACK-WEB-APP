@@ -56,8 +56,7 @@ class AuthController extends Controller
                 'status' => '401',
                 'message' => 'email or password is incorrect!'
             ], 401);
-        }
-        ;
+        };
 
         $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
 
@@ -107,6 +106,31 @@ class AuthController extends Controller
             return response()->json(['message' => 'Failed to send reset password email'], 500);
         }
     }
+
+    public function newUserPassword(Request $request, string $email)
+    {
+        $user = User::where('email', $email)->first();
+    
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.',
+            ], 404);
+        }
+    
+        $user->update($request->all());
+        $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
+    
+        $response = [
+            "success" => true,
+            "message" => 'User has a new password successfully!',
+            "user" => $user,
+            "token" => $token
+        ];
+    
+        return response($response, 201);
+    }
+    
 
     public function index(){
 

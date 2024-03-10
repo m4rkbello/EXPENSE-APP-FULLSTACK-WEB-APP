@@ -19,7 +19,7 @@ const Login = ({ loginUserPost }) => {
       const postAndResponseUserLogin = await loginUserPost({ email: localEmail, password: localPassword });
       console.log(postAndResponseUserLogin);
       window.location.reload();
-      navigate("/home");
+      // navigate("/home");
     } catch (error) {
       toast.error("Email and password are incorrect!");
     }
@@ -46,7 +46,7 @@ const Login = ({ loginUserPost }) => {
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
-                <input type="password" value={localPassword} onChange={(e) => setLocalPassword(e.target.value)} placeholder="password" className="input input-bordered" required />
+                <input type="text" value={localPassword} onChange={(e) => setLocalPassword(e.target.value)} placeholder="password" className="input input-bordered" required />
                 <label className="label">
                   <Link to="/register" className="label-text-alt link link-hover">Create an Account?</Link>
                 </label>

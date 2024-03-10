@@ -24,7 +24,8 @@ Route::get('/students/search/{name}', [StudentController::class, 'search']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/find-user', [AuthController::class, 'resetPassword']);
+Route::post('/find-user', [AuthController::class, 'findUserEmail']);
+Route::put('/resetpassword/{email}', [AuthController::class, 'newUserPassword']);
 Route::get('/users', [AuthController::class, 'index']);
 
 
