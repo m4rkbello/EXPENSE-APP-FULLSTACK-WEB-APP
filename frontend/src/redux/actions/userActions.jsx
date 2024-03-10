@@ -1,5 +1,4 @@
 import api from '../../Services/Api.jsx';
-import { useNavigate } from 'react-router-dom';
 
 import {
     FETCH_USER_REQUEST,
@@ -25,7 +24,7 @@ export const fetchUserRequest = () => {
         console.log("Fetching students...");
         dispatch({ type: FETCH_USER_REQUEST });
         try {
-            const response = await api.get('http://127.0.0.1:8000/api/users');
+            const response = await api.get('/api/users');
             dispatch({ type: FETCH_USER_SUCCESS, payload: response.data });
             console.log("FETCH USER DATAS!", response.data);
         } catch (error) {
@@ -97,18 +96,22 @@ export const registerUserPost = (userData) => {
 
 
 export const findUserEmailPost = (userData) => {
-    dispatch({ type: CREATE_USER_REQUEST });
-    try {
-        const response = api.post('/api/find-user', userData);
+    return async (dispatch) => { 
+        
+            dispatch({ type: CREATE_USER_REQUEST });
+            try {
+                const response = api.post('/api/find-user', userData);
+        
+                    dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
+                    console.log("RESPONSE SA LOGIN!", response.data);
+        
+              
+            } catch (error) {
+                dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
+                console.log("Login error:", error);
+            }
 
-            dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
-            console.log("RESPONSE SA LOGIN!", response.data);
-
-      
-    } catch (error) {
-        dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
-        console.log("Login error:", error);
-    }
+    };
 }
 
 

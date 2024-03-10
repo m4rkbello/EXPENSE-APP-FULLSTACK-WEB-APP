@@ -5,7 +5,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Toaster } from 'react-hot-toast';
-import { loginUserPost } from '../redux/actions/userActions';
+
+import { loginUserPost} from '../redux/actions/userActions';
 
 const Login = ({ loginUserPost }) => {
   const [localEmail, setLocalEmail] = useState("");

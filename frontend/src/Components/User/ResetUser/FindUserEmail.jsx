@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { findUserEmailPost } from '../../../redux/actions/userActions';
+// import { loginUserPost, findUserEmailPost} from '../redux/actions/userActions';
 
 
-function FindUserEmail({findUserEmailPost}) {
+function FindUserEmail( {findUserEmailPost} ) {
     const [localEmail, setLocalEmail] = useState('');
 
         const navigate = useNavigate();
@@ -12,10 +13,10 @@ function FindUserEmail({findUserEmailPost}) {
         const handleFindUserEmail = async (event) => {
           event.preventDefault();
           try {
-             await findUserEmailPost({ email: localEmail });
-          
-            window.location.reload();
-            navigate("/home");
+             const postAndResponstFindUserEmail = await findUserEmailPost({ email: localEmail });
+            console.log(postAndResponstFindUserEmail);
+            // window.location.reload();
+            // navigate("/home");
           } catch (error) {
             toast.error("Email and password are incorrect!");
           }
