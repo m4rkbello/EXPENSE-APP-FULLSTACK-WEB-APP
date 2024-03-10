@@ -14,7 +14,7 @@ function FindUserEmail( {findUserEmailPost} ) {
           event.preventDefault();
           try {
              const postAndResponstFindUserEmail = await findUserEmailPost({ email: localEmail });
-            console.log(postAndResponstFindUserEmail);
+            console.log("DATA SA FIND USER", postAndResponstFindUserEmail.RES);
             // window.location.reload();
             // navigate("/home");
           } catch (error) {

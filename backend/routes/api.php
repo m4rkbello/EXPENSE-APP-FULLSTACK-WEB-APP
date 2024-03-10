@@ -26,6 +26,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/find-user', [AuthController::class, 'findUserEmail']);
 Route::put('/resetpassword/{email}', [AuthController::class, 'newUserPassword']);
+Route::put('/resetpassword', [AuthController::class, 'postNewPassword']);
 Route::get('/users', [AuthController::class, 'index']);
 
 

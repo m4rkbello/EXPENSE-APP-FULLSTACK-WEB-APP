@@ -80,7 +80,7 @@ class AuthController extends Controller
         ];
     }
 
-    public function resetPassword(Request $request)
+    public function findUserEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
     
@@ -90,7 +90,8 @@ class AuthController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
     
-        $token = Str::random(60);
+        // $token = Str::random(60);
+        $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
     
         DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $user->email],
@@ -101,7 +102,11 @@ class AuthController extends Controller
         $mailSent = Mail::to($user->email)->send(new ForgotPasswordMail($token));
     
         if ($mailSent) {
-            return response()->json(['message' => 'Reset password email sent'], 200);
+            return response()->json([
+                'status' => true,
+                'message' => 'Reset password email sent',
+
+            ], 200);
         } else {
             return response()->json(['message' => 'Failed to send reset password email'], 500);
         }
@@ -128,6 +133,30 @@ class AuthController extends Controller
             "token" => $token
         ];
     
+        return response($response, 201);
+    }
+
+    public function postNewPassword(Request $request){
+        $data = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|unique:users,email',
+            'password' => 'required|string|confirmed'
+        ]);
+
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password'])
+        ]);
+
+        $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
+        $response = [
+            'success' => true,
+            'message' => 'User has new token!',
+            'user' => $user,
+            'token' => $token
+        ];
+
         return response($response, 201);
     }
     
