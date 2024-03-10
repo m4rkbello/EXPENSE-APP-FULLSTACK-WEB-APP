@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { loginUserPost } from '../redux/actions/userActions';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Toaster } from 'react-hot-toast';
+import { loginUserPost } from '../redux/actions/userActions';
 
 const Login = ({ loginUserPost }) => {
   const [localEmail, setLocalEmail] = useState("");
