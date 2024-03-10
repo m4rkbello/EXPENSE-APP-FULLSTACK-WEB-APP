@@ -15,10 +15,9 @@ const Login = ({ loginUserPost }) => {
     event.preventDefault();
     try {
       const postAndResponseUserLogin = await loginUserPost({ email: localEmail, password: localPassword });
-      // Navigate to home page upon successful login
       console.log(postAndResponseUserLogin);
-      // window.location.reload();
-      // navigate("/home");
+      window.location.reload();
+      navigate("/home");
     } catch (error) {
       toast.error("Email and password are incorrect!");
     }

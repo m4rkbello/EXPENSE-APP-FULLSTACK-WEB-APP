@@ -54,7 +54,6 @@ export const loginUserPost = (userData) => {
         try {
             const response = await api.post('/api/login', userData);
 
-           
                 dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
                 console.log("RESPONSE SA LOGIN!", response.data);
 
@@ -95,6 +94,13 @@ export const registerUserPost = (userData) => {
         }
     };
 };
+
+
+// export const sendEmailPostForRest = () => {
+//     // return async (dispatch) => {
+
+//     // }
+// }
 
 
 
