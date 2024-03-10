@@ -96,10 +96,10 @@ export const registerUserPost = (userData) => {
 };
 
 
-export const findUserEmailPost = (findEmail) => {
+export const findUserEmailPost = (userData) => {
     dispatch({ type: CREATE_USER_REQUEST });
     try {
-        const response = await api.post('/api/find-user', findEmail);
+        const response = api.post('/api/find-user', userData);
 
             dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
             console.log("RESPONSE SA LOGIN!", response.data);

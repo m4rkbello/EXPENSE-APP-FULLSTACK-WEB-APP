@@ -4,9 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { findUserEmailPost } from '../../../redux/actions/userActions';
 
 
-
-
-
 function FindUserEmail({findUserEmailPost}) {
     const [localEmail, setLocalEmail] = useState('');
 
@@ -15,8 +12,8 @@ function FindUserEmail({findUserEmailPost}) {
         const handleFindUserEmail = async (event) => {
           event.preventDefault();
           try {
-            const postAndResponseFindUserEmail = await findUserEmailPost({ email: localEmail });
-            console.log(postAndResponseFindUserEmail);
+             await findUserEmailPost({ email: localEmail });
+          
             window.location.reload();
             navigate("/home");
           } catch (error) {
@@ -51,14 +48,14 @@ function FindUserEmail({findUserEmailPost}) {
                                     />
                                 </div>
                                 <div className="form-control mt-6">
-                                    <button type="submit" className="btn btn-primary">Find</button>
+                                    <button type="submit" onClick={handleFindUserEmail} className="btn btn-primary">Find</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            {message && <div>{message}</div>} {/* Display the message from the backend */}
+          
         </div>
     );
 }
