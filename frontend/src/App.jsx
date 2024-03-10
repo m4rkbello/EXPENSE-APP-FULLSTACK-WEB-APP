@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
-import Wallet from './Components/Wallet';
+import Wallet from './Components/Employee';
 import ResetPassword from './Components/Auth/ResetPassword';
 import NotFound from './Components/Pages/404';
 import { AiOutlineMenu, AiFillHome } from "react-icons/ai";
