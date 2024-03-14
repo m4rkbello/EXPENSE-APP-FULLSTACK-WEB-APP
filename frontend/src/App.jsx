@@ -9,7 +9,7 @@ import Wallet from './Components/Employee';
 import ResetPassword from './Components/User/ResetUser/FindUserEmail';
 import NotFound from './Components/Pages/404';
 import { AiOutlineMenu, AiFillHome } from "react-icons/ai";
-import {fetchUserRequest} from './redux/actions/userActions'
+import { fetchUserRequest, loginUserPost } from './redux/actions/userActions'
 import UserProfile from './Components/User/Profile/UserProfile';
 
 function App(props) {
@@ -18,15 +18,19 @@ function App(props) {
   const [hasToken, setHasToken] = useState(false);
 
   useEffect(() => {
-
     // Check if token exists in localStorage or cookies
     const token = localStorage.getItem('M4rkbelloFullstackPersonalAccessToken') && getCookie('M4rkbelloFullstackPersonalAccessToken');
+    // const user = localStorage.setItem('M4rkbelloFullstackUserAuthenticated');
+
     console.log("DATA LOCALSTORAGE!", token);
+    // console.log("DATA LOCALSTORAGE!", user);
     if (token) {
       setHasToken(true);
     }
 
     props.fetchUserRequest();
+
+    // props.loginUserPost();
 
   }, []);
   
@@ -37,8 +41,8 @@ function App(props) {
   }
 
 
-  // const userCollection = props?.userData?.users?.[0]?.personal_access_token;
-  // console.log("USER NA !", userCollection);
+  const userCollection = props?.userData?.users?.[0]?.personal_access_token;
+  console.log("USER NA !", userCollection);
   
   // function userAuth(userCollection) {
   //   userIsAuthenticated = [];
@@ -60,9 +64,6 @@ function App(props) {
   // console.log("USER NA FILTER TOKEN BASE TOKEN", userAuthFiltered);
   
   
-
-  
-
   return (
     <div className='shadow-2xl bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% min-h-screen'>
       <div className="navbar shadow-2xl .. bg-black">
@@ -103,12 +104,10 @@ function App(props) {
               <Link to="/profile">
               <div className="avatar online">
               <div className="w-14 rounded-full">
-              
               <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
               </div>
               </div>
               </Link>
-                  
               </div>
             ) : (
               <div>
@@ -142,7 +141,6 @@ function App(props) {
 
           ) : (
             <>
-
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/resetpassword" element={<ResetPassword />} />
@@ -167,6 +165,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUserRequest: () => dispatch(fetchUserRequest()),
+    loginUserPost: (userData) => dispatch(loginUserPost(userData)),
   };
 };
 

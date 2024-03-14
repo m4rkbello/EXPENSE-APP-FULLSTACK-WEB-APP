@@ -1,4 +1,5 @@
 import api from '../../Services/Api.jsx';
+import { useState } from 'react';
 
 import {
     FETCH_USER_REQUEST,
@@ -52,23 +53,30 @@ export const loginUserPost = (userData) => {
         dispatch({ type: CREATE_USER_REQUEST });
         try {
             const response = await api.post('/api/login', userData);
-
-                dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
-                console.log("RESPONSE SA LOGIN!", response.data);
-
-                const { token } = response.data;
-
+            
+            dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
+            
+            const { token, user } = response.data;
+            
+            console.log("RESPONSE SA LOGIN!", token);
+            console.log("RESPONSE SA LOGIN!", user);
+            
+    
                 // Save token to localStorage
                 localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
+
+                // //save userData to localStorage
+                localStorage.setItem('M4rkbelloFullstackUserAuthenticated', user);
 
                 // Save token to cookie
                 document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
                 document.cookie = `M4rkBelloFullstackTime=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
 
-                // Clear local email and password state
-                // This is optional based on your application's requirements
-                // setLocalEmail("");
-                // setLocalPassword("");
+                //naa nay data
+    
+                setLocalEmail("");
+                setLocalPassword("");
+                console.log("DATA GIKAN SA LOGIN", response.data);
           
         } catch (error) {
             dispatch({ type: CREATE_USER_FAILURE, payload: error.message });

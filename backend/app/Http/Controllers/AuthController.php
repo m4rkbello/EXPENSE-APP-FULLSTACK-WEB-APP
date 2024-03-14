@@ -50,6 +50,9 @@ class AuthController extends Controller
 
         $user = User::where('email', $data['email'])->first();
 
+
+        $userAuthenticated = $user;
+
         if (!$user || !Hash::check($data['password'], $user->password)) {
             return response([
                 'success' => false,
@@ -58,13 +61,23 @@ class AuthController extends Controller
             ], 401);
         };
 
+
+        $userAuthenticated = $user->id;
+
+
         $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
 
         $response = [
             'success' => true,
             'message' => 'Email and Password is correct!',
-            'user' => $user,
-            'token' => $token
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => $user->password,
+            ],
+            'token' => $token,
+            'user_authenticated' => $userAuthenticated,
         ];
 
         return response($response, 200);

@@ -18,7 +18,7 @@ const Login = ({ loginUserPost }) => {
     try {
       const postAndResponseUserLogin = await loginUserPost({ email: localEmail, password: localPassword });
 
-      console.log(postAndResponseUserLogin);
+      console.log("RESPONDE SA LOGIN!", postAndResponseUserLogin);
       window.location.reload();
       navigate("/home");
     } catch (error) {
