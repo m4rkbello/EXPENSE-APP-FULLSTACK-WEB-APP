@@ -122,23 +122,16 @@ function Wallet(props) {
                                 </>
                             ) : (
                                 <>
-                                    <div className="join">
-                                        <div>
-                                            <div>
-                                                <input className="input input-bordered join-item" placeholder="Search" />
-                                            </div>
-                                        </div>
-                                        <select className="select select-bordered join-item">
-                                            <option disabled selected>Filter</option>
-                                            <option>Sci-fi</option>
-                                            <option>Drama</option>
-                                            <option>Action</option>
-                                        </select>
-                                        <div className="indicator">
-                                            <span className="indicator-item badge badge-secondary">new</span>
-                                            <button className="btn join-item">Search</button>
-                                        </div>
-                                    </div>
+                                <div role="tablist" className="tabs tabs-lifted">
+                                <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Tab 1" />
+                                <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 1</div>
+                              
+                                <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Tab 2" checked />
+                                <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 2</div>
+                              
+                                <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Tab 3" />
+                                <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 3</div>
+                              </div>
                                 </>
 
                             )
@@ -147,6 +140,7 @@ function Wallet(props) {
 
                     </table>
                 </div>
+                
             </div>
         </div>
     )
