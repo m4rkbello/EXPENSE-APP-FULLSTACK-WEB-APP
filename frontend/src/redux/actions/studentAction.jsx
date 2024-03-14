@@ -48,10 +48,17 @@ export const fetchStudentFailure = (error) => ({
 });
 
 //CREATE STUDENT 
-export const createStudent = (student) => ({
-    type: CREATE_STUDENT_REQUEST,
-    payload: student,
-});
+export const createStudentRequest = (student) => {
+    return async (dispatch) => {
+      dispatch({ type: CREATE_STUDENT_REQUEST });
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/students', student);
+        dispatch({ type: CREATE_STUDENT_SUCCESS, payload: response.data });
+      } catch (error) {
+        dispatch({ type: CREATE_STUDENT_FAILURE, payload: error.message });
+      }
+    };
+  };
 
 export const createStudentSuccess = () => ({
     type: CREATE_STUDENT_SUCCESS,
@@ -63,10 +70,17 @@ export const createStudentFailure = (error) => ({
 });
 
 //READ STUDENT
-export const readStudent = (id) => ({
-    type: READ_STUDENT_REQUEST,
-    payload: id,
-});
+export const readStudentRequest = (id) => {
+    return async (dispatch) => {
+      dispatch({ type: READ_STUDENT_REQUEST });
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/students/${id}`);
+        dispatch({ type: READ_STUDENT_SUCCESS, payload: response.data });
+      } catch (error) {
+        dispatch({ type: READ_STUDENT_FAILURE, payload: error.message });
+      }
+    };
+  };
 
 export const readStudentSuccess = (student) => ({
     type: READ_STUDENT_SUCCESS,
@@ -80,10 +94,17 @@ export const readStudentFailure = (error) => ({
 
 
 //UPDATE STUDENT
-export const updateStudent = (id, newStudent) => ({
-    type: UPDATE_STUDENT_REQUEST,
-    payload: {id, newStudent},
-});
+export const updateStudentRequest = (id, newStudent) => {
+    return async (dispatch) => {
+      dispatch({ type: UPDATE_STUDENT_REQUEST });
+      try {
+        const response = await axios.put(`http://127.0.0.1:8000/api/students/${id}`, newStudent);
+        dispatch({ type: UPDATE_STUDENT_SUCCESS, payload: { id, newStudent: response.data } });
+      } catch (error) {
+        dispatch({ type: UPDATE_STUDENT_FAILURE, payload: error.message });
+      }
+    };
+};
 
 export const updateStudentSuccess = () => ({
     type: UPDATE_STUDENT_SUCCESS,
@@ -94,11 +115,18 @@ export const updateStudentFailure = (error) => ({
     payload: error,
 });
 
-//DELETE STUDENT
-export const deleteStudent = (id) => ({
-    type: DELETE_STUDENT_REQUEST,
-    payload: id,
-});
+// Delete Student
+export const deleteStudentRequest = (id) => {
+    return async (dispatch) => {
+      dispatch({ type: DELETE_STUDENT_REQUEST });
+      try {
+        await axios.delete(`http://127.0.0.1:8000/api/students/${id}`);
+        dispatch({ type: DELETE_STUDENT_SUCCESS, payload: id });
+      } catch (error) {
+        dispatch({ type: DELETE_STUDENT_FAILURE, payload: error.message });
+      }
+    };
+};
 
 export const deleteStudentSuccess = () => ({
     type: DELETE_STUDENT_SUCCESS,
