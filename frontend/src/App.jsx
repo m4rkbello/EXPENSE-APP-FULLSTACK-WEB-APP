@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
-import Wallet from './Components/Employee';
+import Wallet from './Components/Student';
 
 import ResetPassword from './Components/User/ResetUser/FindUserEmail';
 import NotFound from './Components/Pages/404';

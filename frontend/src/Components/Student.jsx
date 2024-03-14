@@ -4,8 +4,11 @@ import { connect } from 'react-redux';
 import { fetchStudentRequest } from '../redux/actions/studentAction';
 import { useEffect } from 'react';
 import { PiStudentFill } from "react-icons/pi";
-import { BiSolidShow, BiEditAlt } from "react-icons/bi";
+import { BiSolidShow, BiEditAlt, BiPlus } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
+import AddStudentModal from './student/modal/AddStudentModal';
+import EditStudentModal from './student/modal/EditStudentModal';
+import DeleteStudentModal from './student/modal/DeleteStudentModal';
 
 
 function Wallet(props) {
@@ -34,12 +37,17 @@ function Wallet(props) {
     return (
         <div>
 
-            <dialog id="view_employee" className="modal">
+        <AddStudentModal id="add_student" title="add student" />
+        <EditStudentModal id="edit_student" title="add student" />
+        <DeleteStudentModal id="edit_student" title="add student" />
+        
+
+            <dialog id="view_student" className="modal">
                 <div className="modal-box">
                     <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
+                       
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                        <h3 className="font-bold text-lg">View Employee</h3>
+                        <h3 className="font-bold text-lg">View Student</h3>
                         <div className='justify-items-end'>
                             <button className="btn">Close</button>
                         </div>
@@ -47,32 +55,7 @@ function Wallet(props) {
                 </div>
             </dialog>
 
-            <dialog id="edit_employee" className="modal">
-                <div className="modal-box">
-                    <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                        <h3 className="font-bold text-lg">Edit Employee</h3>
-                        <div className='justify-items-end'>
-                            <button className="btn">Close</button>
-                        </div>
-                    </form>
-                </div>
-            </dialog>
-
-            <dialog id="delete_employee" className="modal">
-                <div className="modal-box">
-                    <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                        <h3 className="font-bold text-lg">Are you sure you want to delete this Employee?</h3>
-                        <div className='justify-items-end'>
-                            <button className="btn">Yes</button>
-                            <button className="btn">No</button>
-                        </div>
-                    </form>
-                </div>
-            </dialog>
+    
 
 
             <div className="flex">
@@ -127,9 +110,10 @@ function Wallet(props) {
                                         <td className="hover">{student.std_address}</td>
                                         <td>
                                             <div className="join join-vertical lg:join-horizontal">
-                                                <button className="btn join-item" onClick={() => document.getElementById('view_employee').showModal()}><BiSolidShow /></button>
-                                                <button className="btn join-item" onClick={() => document.getElementById('edit_employee').showModal()}><BiEditAlt /></button>
-                                                <button className="btn join-item" onClick={() => document.getElementById('delete_employee').showModal()} ><MdDelete /></button>
+                                            <button className="btn join-item" onClick={() => document.getElementById('view_student').showModal()}><BiSolidShow /></button>
+                                                <button className="btn join-item" onClick={() => document.getElementById('add_student').showModal()}><BiPlus /></button>
+                                                <button className="btn join-item" onClick={() => document.getElementById('edit_student').showModal()}><BiEditAlt /></button>
+                                                <button className="btn join-item" onClick={() => document.getElementById('delete_student').showModal()} ><MdDelete /></button>
                                             </div>
 
 
