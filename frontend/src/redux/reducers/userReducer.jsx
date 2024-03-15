@@ -19,7 +19,10 @@ import {
   const initialState = {
     users: [],
     loading: false,
+    token: null,
+    isAuthenticated: false,
     error: null,
+
   };
   
   const userReducer = (state = initialState, action) => {
@@ -39,6 +42,8 @@ import {
           ...state,
           loading: false,
           users: [...state.users, action.payload],
+          token: action.payload.token,
+          isAuthenticated: true,
           error: null,
         };
       case READ_USER_SUCCESS:

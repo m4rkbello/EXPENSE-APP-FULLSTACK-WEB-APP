@@ -61,11 +61,10 @@ export const loginUserPost = (userData) => {
             console.log("RESPONSE SA LOGIN!", token);
             console.log("RESPONSE SA LOGIN!", user);
             
-    
                 // Save token to localStorage
                 localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
 
-                // //save userData to localStorage
+                //save userData to localStorage
                 localStorage.setItem('M4rkbelloFullstackUserAuthenticated', user);
 
                 // Save token to cookie
@@ -73,7 +72,6 @@ export const loginUserPost = (userData) => {
                 document.cookie = `M4rkBelloFullstackTime=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
 
                 //naa nay data
-    
                 setLocalEmail("");
                 setLocalPassword("");
                 console.log("DATA GIKAN SA LOGIN", response.data);

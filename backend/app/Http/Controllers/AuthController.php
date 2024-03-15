@@ -64,6 +64,14 @@ class AuthController extends Controller
 
         $userAuthenticated = $user->id;
 
+        $userWhoIsAuthenticated = DB::table('users')
+        ->where('id', $userAuthenticated)
+        ->select(
+            'name',
+            'email',
+        )
+        ->get();
+
 
         $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
 
@@ -78,6 +86,7 @@ class AuthController extends Controller
             ],
             'token' => $token,
             'user_authenticated' => $userAuthenticated,
+            'userWhoIsAuthenticated' => $userWhoIsAuthenticated,
         ];
 
         return response($response, 200);

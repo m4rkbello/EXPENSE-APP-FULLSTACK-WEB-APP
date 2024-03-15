@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Toaster } from 'react-hot-toast';
 
-import { loginUserPost} from '../redux/actions/userActions';
+import { loginUserPost } from '../redux/actions/userActions';
 
 const Login = ({ loginUserPost }) => {
   const [localEmail, setLocalEmail] = useState("");
@@ -19,8 +19,8 @@ const Login = ({ loginUserPost }) => {
       const postAndResponseUserLogin = await loginUserPost({ email: localEmail, password: localPassword });
 
       console.log("RESPONDE SA LOGIN!", postAndResponseUserLogin);
-      window.location.reload();
       navigate("/home");
+      window.location.reload();
     } catch (error) {
       toast.error("Email and password are incorrect!");
     }
