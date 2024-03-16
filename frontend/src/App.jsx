@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, Link, Navigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
@@ -14,8 +14,18 @@ import UserProfile from './Components/User/Profile/UserProfile';
 
 function App(props) {
   console.log("HOY GANA!", props&&props);
+
  
   const [hasToken, setHasToken] = useState(false);
+  const [isAuthLocalStorage, setIsisAuthLocalStorage] = useState([]);
+
+  const isAuthenticatedUser = useSelector(state => state.userReducer.loginResponse.user);
+
+  
+  console.log("USESELECTOR REDUX", isAuthenticatedUser);
+
+  // const isUserAuthenticated = props?.
+  
 
   useEffect(() => {
     // Check if token exists in localStorage or cookies
@@ -27,12 +37,21 @@ function App(props) {
     if (token) {
       setHasToken(true);
     }
-
     props.fetchUserRequest();
-
-    // props.loginUserPost();
-
   }, []);
+
+//   useEffect(() => {
+//     if (isAuthenticatedUser !== undefined && isAuthenticatedUser !== null) {
+//       localStorage.setItem('userAuthenticatedByLocalStorage', JSON.stringify(isAuthenticatedUser));
+//       setIsisAuthLocalStorage();
+//       sessionStorage.setItem('userAuthenticatedBySessionStorage', JSON.stringify(isAuthenticatedUser));
+//     }
+//   }, [isAuthenticatedUser]);
+
+// console.log("DATA GIKAN SA LOCALSTORAGE", isAuthLocalStorage);
+
+
+
   
   function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -40,33 +59,32 @@ function App(props) {
     if (parts.length === 2) return parts.pop().split(';').shift();
   }
 
-
-  const userCollection = props?.userData?.users?.[0]?.personal_access_token;
+  const userCollection = props?.userData?.loginResponse?.users;
   console.log("USER NA !", userCollection);
+
+
+  function getUserAuthenticated(userCollection) {
+    let filteredUsers = [];
+    if (userCollection) {
+      for (let i = 0; i < userCollection.length; i++) {
+        if (userCollection[i].id === 1) {
+          filteredUsers.push(userCollection[i]);
+        }
+      }
+    }
+    return filteredUsers;
+  }
   
-  // function userAuth(userCollection) {
-  //   userIsAuthenticated = [];
+  const userSpecific = getUserAuthenticated(userCollection);
+  console.log("DATA NA GI FILTER!", userSpecific);
   
-  //   // Check if userCollection is an array before iterating
-  //   if (Array.isArray(userCollection)) {
-  //     for (let ez = 0; ez < userCollection.length; ez++) {
-  //       if (userCollection[ez]) {
-  //         user = userCollection[ez];
-  //         userIsAuthenticated.push(user);
-  //       }
-  //     }
-  //   }
+
   
-  //   return userIsAuthenticated;
-  // }
-  
-  // const userAuthFiltered = userAuth(userCollection);
-  // console.log("USER NA FILTER TOKEN BASE TOKEN", userAuthFiltered);
-  
-  
+  console.log("LOCAL STORAGE", isAuthenticatedUser);
   return (
     <div className='shadow-2xl bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% min-h-screen'>
-      <div className="navbar shadow-2xl .. bg-black">
+    <div className="navbar shadow-2xl ..  bg-black">
+
         {hasToken.length !== 0 && hasToken ? (
           <div className="drawer">
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -154,9 +172,8 @@ function App(props) {
 }
 
 
-
 function mapStateToProps(state) {
-  console.log("DATA", state.userReducer);
+  console.log("DATA SA MAPTOSTATETOPROPS", state.userReducer);
   return {
       userData: state.userReducer
   };
@@ -165,7 +182,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUserRequest: () => dispatch(fetchUserRequest()),
-    loginUserPost: (userData) => dispatch(loginUserPost(userData)),
+    // loginResponse: () => dispatch(loginResponse()),
+    // loginUserPost: (userData) => dispatch(loginUserPost(userData)),
   };
 };
 

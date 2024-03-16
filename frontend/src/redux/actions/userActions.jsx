@@ -16,24 +16,37 @@ import {
     UPDATE_USER_SUCCESS,
     DELETE_USER_REQUEST,
     DELETE_USER_FAILURE,
-    DELETE_USER_SUCCESS
+    DELETE_USER_SUCCESS,
+    LOGIN_USER_REQUEST,
+    LOGIN_USER_SUCCESS,
+    LOGIN_USER_FAILURE
 } from '../types/userTypes.jsx';
 
 //FETCH STUDENT
-export const fetchUserRequest = () => {
+export const fetchUserRequest = (loginResponse = null) => {
     return async dispatch => {
-        console.log("Fetching students...");
-        dispatch({ type: FETCH_USER_REQUEST });
-        try {
-            const response = await api.get('/api/users');
-            dispatch({ type: FETCH_USER_SUCCESS, payload: response.data });
-            console.log("FETCH USER DATAS!", response.data);
-        } catch (error) {
-            console.error("Fetch students error:", error.message);
-            dispatch({ type: FETCH_USER_FAILURE, payload: error.message });
+      console.log("Fetching students...");
+      dispatch({ type: FETCH_USER_REQUEST });
+  
+      try {
+        let response;
+        if (loginResponse) {
+          // Use the response data from the login API call
+          response = { data: loginResponse };
+          console.log("DATA LOGIN SUCCESS THEN EYANG E FETCH")
+        } else {
+          // Make a separate API call to fetch the user data
+          response = await api.get('/api/users');
         }
+  
+        dispatch({ type: FETCH_USER_SUCCESS, payload: response.data });
+        console.log("FETCH USER DATAS!", response.data);
+      } catch (error) {
+        console.error("Fetch students error:", error.message);
+        dispatch({ type: FETCH_USER_FAILURE, payload: error.message });
+      }
     };
-};
+  };
 
 
 export const fetchUserSuccess = (users) => ({
@@ -55,33 +68,35 @@ export const loginUserPost = (userData) => {
             const response = await api.post('/api/login', userData);
             
             dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
+            dispatch({ type: LOGIN_USER_SUCCESS, payload: { user: response.data.user, token: response.data.token } });
+      
+            const { token } = response.data.user;
+            const { user } = response.data;
+            console.log("LOGIN RESPONSE NIYA", user);
             
-            const { token, user } = response.data;
+            // Save token to localStorage
+            localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
+            localStorage.setItem('M4rkbelloFullstackUserAuthenticated', JSON.stringify(user)); // Make sure to stringify the object
+
+            // Save token to cookie
+            document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
+            document.cookie = `M4rkBelloFullstackTime=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
+
+            // Clear local email and password (assuming these are state variables)
+            setLocalEmail("");
+            setLocalPassword("");
             
-            console.log("RESPONSE SA LOGIN!", token);
-            console.log("RESPONSE SA LOGIN!", user);
-            
-                // Save token to localStorage
-                localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
-
-                //save userData to localStorage
-                localStorage.setItem('M4rkbelloFullstackUserAuthenticated', user);
-
-                // Save token to cookie
-                document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
-                document.cookie = `M4rkBelloFullstackTime=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
-
-                //naa nay data
-                setLocalEmail("");
-                setLocalPassword("");
-                console.log("DATA GIKAN SA LOGIN", response.data);
+            dispatch(fetchUserRequest(response.data));
           
         } catch (error) {
             dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
+            dispatch({ type: LOGIN_USER_FAILURE, payload: error.message });
             console.log("Login error:", error);
         }
     };
 };
+
+
 
 
 export const registerUserPost = (userData) => {
@@ -120,6 +135,20 @@ export const findUserEmailPost = (userData) => {
     };
 }
 
+export const fetchLoginUser = () => {
+    return async dispatch => {
+        console.log("Fetching students...");
+        dispatch({ type: FETCH_USER_REQUEST });
+        try {
+            const response = await api.get('/api/users');
+            dispatch({ type: FETCH_USER_SUCCESS, payload: response.data });
+            console.log("FETCH USER DATAS!", response.data);
+        } catch (error) {
+            console.error("Fetch students error:", error.message);
+            dispatch({ type: FETCH_USER_FAILURE, payload: error.message });
+        }
+    };
+};
 
 
 export const createUserSuccess = () => ({

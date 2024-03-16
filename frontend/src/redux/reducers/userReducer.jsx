@@ -14,6 +14,9 @@ import {
     DELETE_USER_REQUEST,
     DELETE_USER_SUCCESS,
     DELETE_USER_FAILURE,
+    LOGIN_USER_REQUEST,
+    LOGIN_USER_SUCCESS,
+    LOGIN_USER_FAILURE,
   } from '../types/userTypes.jsx';
   
   const initialState = {
@@ -22,7 +25,7 @@ import {
     token: null,
     isAuthenticated: false,
     error: null,
-
+    loginResponse: []
   };
   
   const userReducer = (state = initialState, action) => {
@@ -38,13 +41,15 @@ import {
         };
       case FETCH_USER_SUCCESS:
       case CREATE_USER_SUCCESS:
+      case LOGIN_USER_SUCCESS:
         return {
           ...state,
           loading: false,
-          users: [...state.users, action.payload],
+          users: [...state.users,  action.payload],
           token: action.payload.token,
           isAuthenticated: true,
           error: null,
+          loginResponse: action.payload
         };
       case READ_USER_SUCCESS:
         return {
@@ -77,6 +82,17 @@ import {
           loading: false,
           error: action.payload,
         };
+        case LOGIN_USER_REQUEST:
+          return {
+            ...state,
+            loading: true,
+          };
+        case LOGIN_USER_FAILURE:
+          return {
+            ...state,
+            loading: false,
+            error: action.payload,
+          };
       default:
         return state;
     }

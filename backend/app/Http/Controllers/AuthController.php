@@ -61,7 +61,6 @@ class AuthController extends Controller
             ], 401);
         };
 
-
         $userAuthenticated = $user->id;
 
         $userWhoIsAuthenticated = DB::table('users')
@@ -69,9 +68,8 @@ class AuthController extends Controller
         ->select(
             'name',
             'email',
-        )
+            )
         ->get();
-
 
         $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
 
@@ -85,8 +83,8 @@ class AuthController extends Controller
                 'password' => $user->password,
             ],
             'token' => $token,
-            'user_authenticated' => $userAuthenticated,
-            'userWhoIsAuthenticated' => $userWhoIsAuthenticated,
+            'user_authenticated_id' => $userAuthenticated,
+            // 'userWhoIsAuthenticated' => $userWhoIsAuthenticated,
         ];
 
         return response($response, 200);
