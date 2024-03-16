@@ -40,6 +40,15 @@ function App(props) {
     props.fetchUserRequest();
   }, []);
 
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  const userCollection = props?.userData?.loginResponse?.users;
+  console.log("USER NA !", userCollection);
+
   useEffect(() => {
     if (isAuthenticatedUser !== undefined && isAuthenticatedUser !== null) {
       const authUserToLocalStorage = JSON.stringify(isAuthenticatedUser);
@@ -59,35 +68,19 @@ function App(props) {
   
   const getUserProperties = (userData) => {
     if (userData) {
-      const { name, email, password } = userData;
-      return { name, email, password };
+      const { id, name, email, password } = userData;
+      return { id, name, email, password };
     }
     return null;
   };
 
-
-
   console.log("NAME SA USER", isAuthLocalStorage);
-
-
-
-
-  
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
-
-  const userCollection = props?.userData?.loginResponse?.users;
-  console.log("USER NA !", userCollection);
-
 
   function getUserAuthenticated(userCollection) {
     let filteredUsers = [];
     if (userCollection) {
       for (let i = 0; i < userCollection.length; i++) {
-        if (userCollection[i].id === 1) {
+        if (userCollection[i].id === isAuthLocalStorage.id) {
           filteredUsers.push(userCollection[i]);
         }
       }
@@ -95,8 +88,8 @@ function App(props) {
     return filteredUsers;
   }
   
-  const userSpecific = getUserAuthenticated(userCollection);
-  console.log("DATA NA GI FILTER!", userSpecific);
+  const userAuthenticated = getUserAuthenticated(userCollection);
+  console.log("DATA NA GI FILTER!", userAuthenticated);
   
 
   
@@ -138,15 +131,25 @@ function App(props) {
         <div className="flex-none" style={{ display: 'flex' }}>
           <ul className="menu menu-horizontal px-1">
             {hasToken.length !== 0 && hasToken ? (
+              <>
+              {userAuthenticated.map((user, index) => (
+             
+                <span className='text-3xl pt-3 pe-3' key={index}>
+                {user.name}
+                </span>
+                
+              ))}
               <div>
               <Link to="/profile">
               <div className="avatar online">
               <div className="w-14 rounded-full">
+       
               <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
               </div>
               </div>
               </Link>
               </div>
+              </>
             ) : (
               <div>
                 <ul className="menu menu-horizontal px-1 text-white text-base">
@@ -171,7 +174,6 @@ function App(props) {
         <Routes>
           {hasToken ? (
             <>
-
               <Route path="/home" element={<Home />} />
               <Route path="/wallet" element={<Wallet />} />
               <Route path="profile" element={<UserProfile />} />
