@@ -21,11 +21,7 @@ function App(props) {
 
   const isAuthenticatedUser = useSelector(state => state.userReducer.loginResponse.user);
 
-  
   console.log("USESELECTOR REDUX", isAuthenticatedUser);
-
-  // const isUserAuthenticated = props?.
-  
 
   useEffect(() => {
     // Check if token exists in localStorage or cookies
@@ -74,8 +70,6 @@ function App(props) {
     return null;
   };
 
-  console.log("NAME SA USER", isAuthLocalStorage);
-
   function getUserAuthenticated(userCollection) {
     let filteredUsers = [];
     if (userCollection) {
@@ -89,22 +83,15 @@ function App(props) {
   }
   
   const userAuthenticated = getUserAuthenticated(userCollection);
-  console.log("DATA NA GI FILTER!", userAuthenticated);
-  
 
-  
-  console.log("LOCAL STORAGE", isAuthenticatedUser);
   return (
     <div className='shadow-2xl bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% min-h-screen'>
     <div className="navbar shadow-2xl ..  bg-black">
-
         {hasToken.length !== 0 && hasToken ? (
           <div className="drawer">
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
-
               <label htmlFor="my-drawer" className="btn btn-primary drawer-button">   <AiOutlineMenu /> Menu</label>
-
             </div>
             <div className="shadow-2xl drawer-side">
               <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
@@ -133,11 +120,9 @@ function App(props) {
             {hasToken.length !== 0 && hasToken ? (
               <>
               {userAuthenticated.map((user, index) => (
-             
                 <span className='text-3xl pt-3 pe-3' key={index}>
                 {user.name}
                 </span>
-                
               ))}
               <div>
               <Link to="/profile">
@@ -165,9 +150,7 @@ function App(props) {
               </div>
             )}
           </ul>
-
         </div>
-
       </div>
 
       <div className='max-w-7xl mx-auto mt-6'>
@@ -178,7 +161,6 @@ function App(props) {
               <Route path="/wallet" element={<Wallet />} />
               <Route path="profile" element={<UserProfile />} />
             </>
-
           ) : (
             <>
               <Route path="/login" element={<Login />} />
