@@ -17,7 +17,7 @@ function App(props) {
 
  
   const [hasToken, setHasToken] = useState(false);
-  const [isAuthLocalStorage, setIsisAuthLocalStorage] = useState([]);
+  const [isAuthLocalStorage, setIsAuthLocalStorage] = useState(null);
 
   const isAuthenticatedUser = useSelector(state => state.userReducer.loginResponse.user);
 
@@ -40,15 +40,35 @@ function App(props) {
     props.fetchUserRequest();
   }, []);
 
-//   useEffect(() => {
-//     if (isAuthenticatedUser !== undefined && isAuthenticatedUser !== null) {
-//       localStorage.setItem('userAuthenticatedByLocalStorage', JSON.stringify(isAuthenticatedUser));
-//       setIsisAuthLocalStorage();
-//       sessionStorage.setItem('userAuthenticatedBySessionStorage', JSON.stringify(isAuthenticatedUser));
-//     }
-//   }, [isAuthenticatedUser]);
+  useEffect(() => {
+    if (isAuthenticatedUser !== undefined && isAuthenticatedUser !== null) {
+      const authUserToLocalStorage = JSON.stringify(isAuthenticatedUser);
+      localStorage.setItem('userAuthenticatedByLocalStorage', authUserToLocalStorage);
+      sessionStorage.setItem('userAuthenticatedBySessionStorage', authUserToLocalStorage);
+    }
+  
+    const storedFromLocalStorageData = localStorage.getItem('userAuthenticatedByLocalStorage');
+    let parsedUserData = null;
+  
+    if (storedFromLocalStorageData) {
+      parsedUserData = JSON.parse(storedFromLocalStorageData);
+      const extractedProperties = getUserProperties(parsedUserData);
+      setIsAuthLocalStorage(extractedProperties);
+    }
+  }, [isAuthenticatedUser]);
+  
+  const getUserProperties = (userData) => {
+    if (userData) {
+      const { name, email, password } = userData;
+      return { name, email, password };
+    }
+    return null;
+  };
 
-// console.log("DATA GIKAN SA LOCALSTORAGE", isAuthLocalStorage);
+
+
+  console.log("NAME SA USER", isAuthLocalStorage);
+
 
 
 

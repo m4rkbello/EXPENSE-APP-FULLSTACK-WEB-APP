@@ -70,13 +70,13 @@ export const loginUserPost = (userData) => {
             dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
             dispatch({ type: LOGIN_USER_SUCCESS, payload: { user: response.data.user, token: response.data.token } });
       
-            const { token } = response.data.user;
-            const { user } = response.data;
-            console.log("LOGIN RESPONSE NIYA", user);
+            const { token } = response.data;
+            // const { user } = response.data;
+            // console.log("LOGIN RESPONSE NIYA", user);
             
             // Save token to localStorage
             localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
-            localStorage.setItem('M4rkbelloFullstackUserAuthenticated', JSON.stringify(user)); // Make sure to stringify the object
+            // localStorage.setItem('M4rkbelloFullstackUserAuthenticated', JSON.stringify(user)); // Make sure to stringify the object
 
             // Save token to cookie
             document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
@@ -86,7 +86,7 @@ export const loginUserPost = (userData) => {
             setLocalEmail("");
             setLocalPassword("");
             
-            dispatch(fetchUserRequest(response.data));
+            // dispatch(fetchUserRequest(response.data));
           
         } catch (error) {
             dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
