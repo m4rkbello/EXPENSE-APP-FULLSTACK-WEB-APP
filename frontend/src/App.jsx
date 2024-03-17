@@ -35,16 +35,16 @@ function App(props) {
     }
     props.fetchUserRequest();
   }, []);
-
+  
   function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
   }
-
+  
   const userCollection = props?.userData?.loginResponse?.users;
   console.log("USER NA !", userCollection);
-
+  
   useEffect(() => {
     if (isAuthenticatedUser !== undefined && isAuthenticatedUser !== null) {
       const authUserToLocalStorage = JSON.stringify(isAuthenticatedUser);
@@ -117,7 +117,7 @@ function App(props) {
         }
         <div className="flex-none" style={{ display: 'flex' }}>
           <ul className="menu menu-horizontal px-1">
-            {hasToken.length !== 0 && hasToken ? (
+            {hasToken && userAuthenticated && userAuthenticated.length > 0 ? (
               <>
               {userAuthenticated.map((user, index) => (
                 <span className='text-3xl pt-3 pe-3' key={index}>

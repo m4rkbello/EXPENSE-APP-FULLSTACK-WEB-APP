@@ -22,8 +22,8 @@ const Login = ({ loginUserPost }) => {
       //  handleLoginResponse(postAndResponseUserLogin);
   
       console.log("RESPONDE SA LOGIN!", postAndResponseUserLogin);
+      window.location.reload();
       navigate("/home");
-      // window.location.reload();
     } catch (error) {
       toast.error("Email and password are incorrect!");
     }
