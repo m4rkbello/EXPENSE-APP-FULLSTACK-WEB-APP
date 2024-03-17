@@ -1,4 +1,5 @@
 import axios from 'axios';
+import api from '../../Services/Api.jsx';
 
 
 import {
@@ -49,17 +50,20 @@ export const fetchStudentFailure = (error) => ({
 
 //CREATE STUDENT 
 export const createStudentRequest = (student) => {
-    return async (dispatch) => {
-      dispatch({ type: CREATE_STUDENT_REQUEST });
-      try {
-        const response = await axios.post('http://127.0.0.1:8000/api/students', student);
-        dispatch({ type: CREATE_STUDENT_SUCCESS, payload: response.data });
-      } catch (error) {
-        dispatch({ type: CREATE_STUDENT_FAILURE, payload: error.message });
-      }
-    };
+  return async (dispatch) => {
+    dispatch({ type: CREATE_STUDENT_REQUEST });
+    
+    try {
+      const response = await api.post('/api/students', student);
+      dispatch({ type: CREATE_STUDENT_SUCCESS, payload: response.data });
+      console.log("ADD STUDENT POST", response.data);
+    } catch (error) {
+      dispatch({ type: CREATE_STUDENT_FAILURE, payload: error.message });
+      console.error('Error creating student:', error.response.data);
+      dispatch({ type: CREATE_STUDENT_FAILURE, payload: error.response.data });
+    }
   };
-
+};
 export const createStudentSuccess = () => ({
     type: CREATE_STUDENT_SUCCESS,
 });

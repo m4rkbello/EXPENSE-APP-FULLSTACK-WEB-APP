@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes, Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { fetchStudentRequest } from '../redux/actions/studentAction';
+import { fetchStudentRequest,createStudentRequest  } from '../redux/actions/studentAction';
 import { useEffect } from 'react';
 import { PiStudentFill } from "react-icons/pi";
 import { BiSolidShow, BiEditAlt, BiPlus } from "react-icons/bi";
@@ -98,11 +98,14 @@ function Wallet(props) {
                                 <th>ACTIONS</th>
                             </tr>
                         </thead>
-
+                        <div className=''>
+                        <button className="btn" onClick={() => document.getElementById('add_student').showModal()}><BiPlus /></button>
+                        
+                        </div>
                         {studentsDetails.map((student, index) => (
-
                             student.length !== 0 && student ? (
                                 <>
+                           
                                     <tr key={student.id} className="hover">
                                         <td className="hover">{student.id}</td>
                                         <td className="hover">{student.std_fname} {student.std_mname} {student.std_lname}</td>
@@ -111,7 +114,7 @@ function Wallet(props) {
                                         <td>
                                             <div className="join join-vertical lg:join-horizontal">
                                             <button className="btn join-item" onClick={() => document.getElementById('view_student').showModal()}><BiSolidShow /></button>
-                                                <button className="btn join-item" onClick={() => document.getElementById('add_student').showModal()}><BiPlus /></button>
+                                            
                                                 <button className="btn join-item" onClick={() => document.getElementById('edit_student').showModal()}><BiEditAlt /></button>
                                                 <button className="btn join-item" onClick={() => document.getElementById('delete_student').showModal()} ><MdDelete /></button>
                                             </div>
@@ -157,6 +160,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchStudentRequest: () => dispatch(fetchStudentRequest()),
+        createStudentRequest : (student) => dispatch(fetchStudentRequest(student)),
     };
 };
 
