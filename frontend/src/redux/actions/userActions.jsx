@@ -71,8 +71,8 @@ export const loginUserPost = (userData) => {
             dispatch({ type: LOGIN_USER_SUCCESS, payload: { user: response.data.user, token: response.data.token } });
       
             const { token } = response.data;
-            // const { user } = response.data;
-            // console.log("LOGIN RESPONSE NIYA", user);
+                // const { user } = response.data;
+                // console.log("LOGIN RESPONSE NIYA", user);
             
             // Save token to localStorage
             localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);

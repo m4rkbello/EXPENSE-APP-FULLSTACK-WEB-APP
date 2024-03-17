@@ -27,7 +27,7 @@ function App(props) {
     // Check if token exists in localStorage or cookies
     const token = localStorage.getItem('M4rkbelloFullstackPersonalAccessToken') && getCookie('M4rkbelloFullstackPersonalAccessToken');
     // const user = localStorage.setItem('M4rkbelloFullstackUserAuthenticated');
-u
+
     console.log("DATA LOCALSTORAGE!", token);
     // console.log("DATA LOCALSTORAGE!", user);
     if (token) {

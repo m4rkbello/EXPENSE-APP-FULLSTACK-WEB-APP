@@ -1,7 +1,7 @@
 ===============GASTO-APP=======================
 prerequiste:
 TOOLS NEEDED:
-BACKEND:
+BACKEND
 php version 8.1+
 laragon - server connection
 navicat16 -for hanbdling database
