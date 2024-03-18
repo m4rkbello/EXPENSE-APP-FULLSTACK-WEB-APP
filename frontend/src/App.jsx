@@ -12,11 +12,13 @@ import { AiOutlineMenu, AiFillHome } from "react-icons/ai";
 import { fetchUserRequest, loginUserPost } from './redux/actions/userActions'
 import UserProfile from './Components/User/Profile/UserProfile';
 
+import GetLocLongLat from './Services/GetLocLongLat'; './Services/GetLocation';
+
 function App(props) {
   console.log("HOY GANA!", props&&props);
 
  
-  const [hasToken, setHasToken] = useState(false);
+  const [hasToken, setHasToken] = useState('');
   const [isAuthLocalStorage, setIsAuthLocalStorage] = useState(null);
 
   const isAuthenticatedUser = useSelector(state => state.userReducer.loginResponse.user);
@@ -26,13 +28,14 @@ function App(props) {
   useEffect(() => {
     // Check if token exists in localStorage or cookies
     const token = localStorage.getItem('M4rkbelloFullstackPersonalAccessToken') && getCookie('M4rkbelloFullstackPersonalAccessToken');
-    // const user = localStorage.setItem('M4rkbelloFullstackUserAuthenticated');
-
-    console.log("DATA LOCALSTORAGE!", token);
-    // console.log("DATA LOCALSTORAGE!", user);
+  
+    console.log("Token value:", token);
+  
     if (token) {
       setHasToken(true);
+      console.log("hasToken value after setting:", hasToken);
     }
+  
     props.fetchUserRequest();
   }, []);
   
@@ -72,7 +75,7 @@ function App(props) {
 
   function getUserAuthenticated(userCollection) {
     let filteredUsers = [];
-    if (userCollection) {
+    if (userCollection && isAuthLocalStorage) {
       for (let i = 0; i < userCollection.length; i++) {
         if (userCollection[i].id === isAuthLocalStorage.id) {
           filteredUsers.push(userCollection[i]);
@@ -104,7 +107,7 @@ function App(props) {
                 <li>
                   <Link to="/wallet">WALLET</Link>
                 </li>
-                <li><a>Sidebar Item 1</a></li>
+                <Link to="/getlocation">Get location</Link>
                 <li><a>Sidebar Item 2</a></li>
               </ul>
             </div>
@@ -117,7 +120,7 @@ function App(props) {
         }
         <div className="flex-none" style={{ display: 'flex' }}>
           <ul className="menu menu-horizontal px-1">
-            {hasToken && userAuthenticated && userAuthenticated.length > 0 ? (
+          {hasToken && userAuthenticated && userAuthenticated.length > 0 ? (
               <>
               {userAuthenticated.map((user, index) => (
                 <span className='text-3xl pt-3 pe-3' key={index}>
@@ -160,6 +163,7 @@ function App(props) {
               <Route path="/home" element={<Home />} />
               <Route path="/wallet" element={<Wallet />} />
               <Route path="profile" element={<UserProfile />} />
+              <Route path="/getlocation" element={<GetLocLongLat />} />
             </>
           ) : (
             <>
