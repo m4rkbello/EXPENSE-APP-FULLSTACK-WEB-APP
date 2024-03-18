@@ -30,9 +30,12 @@ function GetLocLongLat() {
         <p>{error}</p>
       ) : (
         <>
-          <span className='text-5xl'>Latitude: {latitude}</span>
-          <br />
-          <span className='text-5xl'>Longitude: {longitude}</span>
+        <div>
+        <label>Your Location:</label>
+        <span className='text-5xl'>Latitude: {latitude}</span>
+        <br />
+        <span className='text-5xl'>Longitude: {longitude}</span>
+        </div>
         </>
       )}
     </div>
