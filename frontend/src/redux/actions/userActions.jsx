@@ -63,39 +63,49 @@ export const fetchUserFailure = (error) => ({
 //CREATE User 
 export const loginUserPost = (userData) => {
     return async (dispatch) => {
-        dispatch({ type: CREATE_USER_REQUEST });
-        try {
-            const response = await api.post('/api/login', userData);
-            
-            dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
-            dispatch({ type: LOGIN_USER_SUCCESS, payload: { user: response.data.user, token: response.data.token } });
-      
-            const { token } = response.data;
-                // const { user } = response.data;
-                // console.log("LOGIN RESPONSE NIYA", user);
-            
-            // Save token to localStorage
-            localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
-            // localStorage.setItem('M4rkbelloFullstackUserAuthenticated', JSON.stringify(user)); // Make sure to stringify the object
-
-            // Save token to cookie
-            document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
-            document.cookie = `M4rkBelloFullstackTime=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
-
-            // Clear local email and password (assuming these are state variables)
-            setLocalEmail("");
-            setLocalPassword("");
-            
-            // dispatch(fetchUserRequest(response.data));
-          
-        } catch (error) {
-            dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
-            dispatch({ type: LOGIN_USER_FAILURE, payload: error.message });
-            console.log("Login error:", error);
-        }
+      dispatch({ type: CREATE_USER_REQUEST });
+      try {
+        const response = await api.post('/api/login', userData);
+        dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
+        dispatch({
+          type: LOGIN_USER_SUCCESS,
+          payload: { user: response.data.user, token: response.data.token },
+        });
+        const { token } = response.data;
+  
+        // Save token to localStorage
+        localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
+  
+        // Save token to cookie
+        document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(
+          Date.now() + 86400 * 1000
+        ).toUTCString()}; path=/`;
+        document.cookie = `M4rkBelloFullstackTime=${token}; expires=${new Date(
+          Date.now() + 86400 * 1000
+        ).toUTCString()}; path=/`;
+  
+        // Clear local email and password (assuming these are state variables)
+        setLocalEmail('');
+        setLocalPassword('');
+  
+        // Set a timeout to remove the token after 5 minutes
+        setTimeout(() => {
+          // Remove token from localStorage
+          localStorage.removeItem('M4rkbelloFullstackPersonalAccessToken');
+  
+          // Remove token from cookies
+          document.cookie =
+            'M4rkbelloFullstackPersonalAccessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+          document.cookie =
+            'M4rkBelloFullstackTime=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        }, 5 * 60 * 1000); // 5 minutes in milliseconds (5 * 60 * 1000)
+      } catch (error) {
+        dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
+        dispatch({ type: LOGIN_USER_FAILURE, payload: error.message });
+        console.log('Login error:', error);
+      }
     };
-};
-
+  };
 
 
 

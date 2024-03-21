@@ -5,6 +5,7 @@ import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
 import Wallet from './Components/Student';
+import Sidebar from './Components/SideBar';
 
 import ResetPassword from './Components/User/ResetUser/FindUserEmail';
 import NotFound from './Components/Pages/404';
@@ -91,6 +92,8 @@ function App(props) {
     <div className='shadow-2xl bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% min-h-screen'>
     <div className="navbar shadow-2xl ..  bg-black">
         {hasToken.length !== 0 && hasToken ? (
+        
+          
           <div className="drawer">
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
@@ -108,7 +111,7 @@ function App(props) {
                   <Link to="/wallet">WALLET</Link>
                 </li>
                 <Link to="/getlocation">Get location</Link>
-                <li><a>Sidebar Item 2</a></li>
+                <Link to="/sidebar">Sidebar</Link>
               </ul>
             </div>
           </div>
@@ -164,6 +167,7 @@ function App(props) {
               <Route path="/wallet" element={<Wallet />} />
               <Route path="profile" element={<UserProfile />} />
               <Route path="/getlocation" element={<GetLocLongLat />} />
+              <Route path="/sidebar" element={<Sidebar />} />
             </>
           ) : (
             <>
