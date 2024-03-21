@@ -18,7 +18,7 @@ const AddStudentModal = ({ createStudentRequest }) => {
     try {
       const postAndResponseCreateStudent = await createStudentRequest({ std_fname: firstName, std_mname: middleName, std_lname: lastName,  std_address: address, std_age: age, status: selectedStatus });
 
-      console.log("RESPONDE SA LOGIN!", postAndResponseCreateStudent);
+      // console.log("RESPONDE SA LOGIN!", postAndResponseCreateStudent);
       // navigate("/home");
       // window.location.reload();
     } catch (error) {
@@ -34,8 +34,8 @@ const AddStudentModal = ({ createStudentRequest }) => {
             {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             <h3 className="font-bold text-lg">Add Student</h3>
-            <div class="flex">
-              <div class="flex-1 w-64 ... ps-5 pe-5 pb-5 pt-2">
+            <div className="flex">
+              <div className="flex-1 w-64 ... ps-5 pe-5 pb-5 pt-2">
                 <div className="form-control">
 
                   <label className="label">
@@ -46,7 +46,7 @@ const AddStudentModal = ({ createStudentRequest }) => {
                 </div>
 
               </div>
-              <div class="flex-1 w-64 ... ps-5 pe-5 pt-2 pb-5">
+              <div className="flex-1 w-64 ... ps-5 pe-5 pt-2 pb-5">
                 <div className="form-control">
 
                   <label className="label">
@@ -58,8 +58,8 @@ const AddStudentModal = ({ createStudentRequest }) => {
               </div>
               <br />
             </div>
-            <div class="flex">
-              <div class="flex-1 w-64 ... ps-5 pe-5 pb-5 pt-2">
+            <div className="flex">
+              <div className="flex-1 w-64 ... ps-5 pe-5 pb-5 pt-2">
                 <div className="form-control">
 
                   <label className="label">
@@ -69,7 +69,7 @@ const AddStudentModal = ({ createStudentRequest }) => {
                 </div>
 
               </div>
-              <div class="flex-1 w-64 ... ps-5 pe-5 pt-2 pb-5">
+              <div className="flex-1 w-64 ... ps-5 pe-5 pt-2 pb-5">
                 <div className="form-control">
 
                   <label className="label">
@@ -81,8 +81,8 @@ const AddStudentModal = ({ createStudentRequest }) => {
               </div>
               <br />
             </div>
-            <div class="flex">
-              <div class="flex-1 w-64 ... ps-5 pe-5 pb-5 pt-2">
+            <div className="flex">
+              <div className="flex-1 w-64 ... ps-5 pe-5 pb-5 pt-2">
                 <div className="form-control">
 
                   <label className="label">
@@ -92,16 +92,17 @@ const AddStudentModal = ({ createStudentRequest }) => {
                 </div>
 
               </div>
-              <div class="flex-1 w-64 ... ps-5 pe-5 pt-2 pb-5">
+              <div className="flex-1 w-64 ... ps-5 pe-5 pt-2 pb-5">
                 <div className="form-control">
                 <label className="label">
                 <span className="label-text">Status</span>
               </label>
-                  <select value={selectedStatus}  onChange={(e) => setSelectedStatus(e.target.value)} className="select w-full max-w-md">
-                    <option disabled selected>Select Student Status</option>
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
-                  </select>
+              <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)} className="select w-full max-w-md">
+              <option disabled value="">Select Student Status</option>
+              <option value="1">Active</option>
+              <option value="0">Inactive</option>
+            </select>
+            
                 </div>
 
               </div>
