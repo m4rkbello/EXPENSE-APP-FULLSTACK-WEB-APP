@@ -154,7 +154,7 @@ function App(props) {
               <Route path="/wallet" element={<Wallet />} />
               <Route path="/profile" element={<UserProfile />} />
               <Route path="/getlocation" element={<GetLocLongLat />} />
-              <Route path="/sidebar" element={<Sidebar />} />
+              {/* Remove Sidebar route from here */}
             </>
           ) : (
             <>

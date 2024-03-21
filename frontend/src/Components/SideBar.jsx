@@ -21,9 +21,6 @@ const Sidebar = () => {
     <div className="navbar shadow-2xl ..  bg-black">
     <Wallet />
     </div>
-
-
-
       <div className='max-w-7xl mx-auto mt-6 flex-1'>
         <Routes>
         <Route path="/wallet" element={<Wallet />} />
