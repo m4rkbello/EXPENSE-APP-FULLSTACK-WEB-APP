@@ -1,8 +1,6 @@
-import React from 'react'
-import { Route, Routes, Link } from 'react-router-dom'
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchStudentRequest,createStudentRequest  } from '../redux/actions/studentAction';
-import { useEffect } from 'react';
+import { fetchStudentRequest } from '../redux/actions/studentAction';
 import { PiStudentFill } from "react-icons/pi";
 import { BiSolidShow, BiEditAlt, BiPlus } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
@@ -10,148 +8,85 @@ import AddStudentModal from './student/modal/AddStudentModal';
 import EditStudentModal from './student/modal/EditStudentModal';
 import DeleteStudentModal from './student/modal/DeleteStudentModal';
 
-
-function Wallet(props) {
-
-    const studentsData = props && props.studentData && props.studentData.students;
-    console.log("DATAS", props && props)
-    console.log("VARIABLE STUDENTS", studentsData);
-
-    function extractStudentsData(studentsData) {
-        const students = [];
-        for (let i = 0; i < studentsData.length; i++) {
-            const student = studentsData[i]; // Retrieve each student
-            students.push(student); // Add the student to the 'students' array
-        }
-        return students;
-    }
-
-    const studentsDetails = extractStudentsData(studentsData);
-
-    console.log("FUNCTION SA STUDENTDATA", studentsDetails);
+function Student(props) {
+    const studentsData = props.studentData.students;
 
     useEffect(() => {
         props.fetchStudentRequest();
     }, []);
 
     return (
-        <div>
+        <div className="flex flex-col lg:flex-row">
+            <AddStudentModal id="add_student" title="Add Student" />
+            <EditStudentModal id="edit_student" title="Edit Student" />
+            <DeleteStudentModal id="delete_student" title="Delete Student" />
 
-        <AddStudentModal id="add_student" title="add student" />
-        <EditStudentModal id="edit_student" title="add student" />
-        <DeleteStudentModal id="edit_student" title="add student" />
-        
-
-            <dialog id="view_student" className="modal">
-                <div className="modal-box">
-                    <form method="dialog">
-                       
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                        <h3 className="font-bold text-lg">View Student</h3>
-                        <div className='justify-items-end'>
-                            <button className="btn">Close</button>
-                        </div>
-                    </form>
-                </div>
-            </dialog>
-
-    
-
-
-            <div className="flex">
-                <div className="flex-none w-64 h-14">
-                </div>
-                <div className="flex-1 w-64">
-                    <div className="flex-1 w-64">
-                        <div className="card w-96 h-30 bg-gradient-to-l from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% shadow-xl">
-                            <div className="card-body">
-                                <div class="items-center">
-                                    <div class="inline-block">
-                                        <PiStudentFill className='text-black h-40 w-40' />
-                                    </div>
-                                    <div class="inline-block ">
-                                        <span className="card-title text-black text-9xl pt-5 pb-15">
-                                            {studentsDetails.length !== 0 ? studentsDetails.length : "0"}
-                                        </span>
-
-                                    </div>
-                                </div>
-
-                                {/**
-                            
-                            */}
+            <div className="w-full lg:w-1/4">
+                {/* Sidebar Content */}
+                <dialog id="view_student" className="modal">
+                    <div className="modal-box">
+                        <form method="dialog">
+                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                            <h3 className="font-bold text-lg">View Student</h3>
+                            <div className='justify-items-end'>
+                                <button className="btn">Close</button>
                             </div>
+                        </form>
+                    </div>
+                </dialog>
+            </div>
+
+            <div className="w-full lg:w-3/4">
+                {/* Main Content */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {/* Card */}
+                    <div className="card bg-gradient-to-l from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% shadow-xl">
+                        <div className="card-body flex items-center">
+                            <PiStudentFill className='text-black h-40 w-40' />
+                            <span className="card-title text-black text-9xl pt-5 pb-15">
+                                {studentsData.length !== 0 ? studentsData.length : "0"}
+                            </span>
                         </div>
                     </div>
-                </div>
-
-                <div className="overflow-x-auto">
-                    <table className="table bg-white">
-
-                        <thead className="bg-base-200">
-                            <div>STUDENTS LIST</div>
-                            <tr className="hover">
-                                <th>Id</th>
-                                <th>FULLNAME</th>
-                                <th>AGE</th>
-                                <th>ADDRESS</th>
-                                <th>ACTIONS</th>
-                            </tr>
-                        </thead>
-                        <div className=''>
-                        <button className="btn" onClick={() => document.getElementById('add_student').showModal()}><BiPlus /></button>
-                        
-                        </div>
-                        {studentsDetails.map((student, index) => (
-                            student.length !== 0 && student ? (
-                                <>
-                           
-                                    <tr key={student.id} className="hover">
-                                        <td className="hover">{student.id}</td>
-                                        <td className="hover">{student.std_fname} {student.std_mname} {student.std_lname}</td>
-                                        <td className="hover">{student.std_age}</td>
-                                        <td className="hover">{student.std_address}</td>
+                    
+                    {/* Table */}
+                    <div className="overflow-x-auto">
+                        <table className="table bg-white">
+                            <thead className="bg-base-200">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Full Name</th>
+                                    <th>Age</th>
+                                    <th>Address</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {studentsData.map((student, index) => (
+                                    <tr key={student.id}>
+                                        <td>{student.id}</td>
+                                        <td>{`${student.std_fname} ${student.std_mname} ${student.std_lname}`}</td>
+                                        <td>{student.std_age}</td>
+                                        <td>{student.std_address}</td>
                                         <td>
                                             <div className="join join-vertical lg:join-horizontal">
-                                            <button className="btn join-item" onClick={() => document.getElementById('view_student').showModal()}><BiSolidShow /></button>
-                                            
+                                                <button className="btn join-item" onClick={() => document.getElementById('view_student').showModal()}><BiSolidShow /></button>
                                                 <button className="btn join-item" onClick={() => document.getElementById('edit_student').showModal()}><BiEditAlt /></button>
-                                                <button className="btn join-item" onClick={() => document.getElementById('delete_student').showModal()} ><MdDelete /></button>
+                                                <button className="btn join-item" onClick={() => document.getElementById('delete_student').showModal()}><MdDelete /></button>
                                             </div>
-
-
                                         </td>
                                     </tr>
-                                </>
-                            ) : (
-                                <>
-                                <div role="tablist" className="tabs tabs-lifted">
-                                <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Tab 1" />
-                                <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 1</div>
-                              
-                                <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Tab 2" checked />
-                                <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 2</div>
-                              
-                                <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Tab 3" />
-                                <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 3</div>
-                              </div>
-                                </>
-
-                            )
-                        ))
-                        }
-
-                    </table>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                
             </div>
         </div>
-    )
+    );
 }
 
-
 function mapStateToProps(state) {
-    console.log("DATA", state.studentReducer)
     return {
         studentData: state.studentReducer
     };
@@ -159,9 +94,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchStudentRequest: () => dispatch(fetchStudentRequest()),
-        createStudentRequest : (student) => dispatch(fetchStudentRequest(student)),
+        fetchStudentRequest: () => dispatch(fetchStudentRequest())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Student);
