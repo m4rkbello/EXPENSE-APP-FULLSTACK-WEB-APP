@@ -37,9 +37,18 @@ function Student(props) {
 
             <div className="w-full lg:w-4/4">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-0 lg:ml-0">
-                    <div className="card bg-gradient-to-l from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% shadow-xl p-4">
-                        <PiStudentFill className='text-black lg:h-20 lg:w-20 h-12 w-12 mx-auto' />
-                        <span className="card-title text-black lg:text-8xl text-3xl pt-2 text-center">
+                <div className="card bg-gradient-to-l from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% shadow-xl p-4">
+                <span className="card-title text-black lg:text-8xl text-3xl pt-2 text-center">
+                <PiStudentFill className='text-black lg:h-20 lg:w-20 h-12 w-12 mx-auto' />
+                            {studentsData.length !== 0 ? studentsData.length : "0"}
+                        </span>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-0 lg:ml-0">
+                <div className="card bg-gradient-to-l from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% shadow-xl p-4">
+                <span className="card-title text-black lg:text-8xl text-3xl pt-2 text-center">
+                <PiStudentFill className='text-black lg:h-20 lg:w-20 h-12 w-12 mx-auto' />
                             {studentsData.length !== 0 ? studentsData.length : "0"}
                         </span>
                     </div>
