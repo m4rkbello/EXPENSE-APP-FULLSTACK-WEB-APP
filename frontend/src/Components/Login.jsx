@@ -29,7 +29,7 @@ const Login = ({ loginUserPost }) => {
   return (
     <div>
     <ToastContainer />
-      <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
+      <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ...">
         <div className="hero-content flex-col  lg:flex-row-reverse">
         <div className="text-center lg:text-left">
         ...

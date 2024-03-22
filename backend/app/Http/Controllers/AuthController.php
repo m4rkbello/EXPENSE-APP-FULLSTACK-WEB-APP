@@ -50,7 +50,6 @@ class AuthController extends Controller
 
         $user = User::where('email', $data['email'])->first();
 
-
         $userAuthenticated = $user;
 
         if (!$user || !Hash::check($data['password'], $user->password)) {

@@ -27,7 +27,7 @@ const Register = ({registerUserPost}) => {
 
   return (
     <div>
-    <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
+    <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ...">
     <div className="hero-content flex-col lg:flex-row-reverse">
     <div className="text-center lg:text-left">
                             ...
@@ -55,14 +55,14 @@ const Register = ({registerUserPost}) => {
             <label className="label">
               <span className="label-text">Password</span>
             </label>
-            <input type="password" value={localPassword} onChange={(e) => setLocalPassword(e.target.value)} placeholder="password" className="input input-bordered" required />
+            <input type="text" value={localPassword} onChange={(e) => setLocalPassword(e.target.value)} placeholder="password" className="input input-bordered" required />
         
           </div>
           <div className="form-control">
           <label className="label">
             <span className="label-text">Confirm Password</span>
           </label>
-          <input type="password" value={localConfirmPassword} onChange={(e) => setLocalConfirmPassword(e.target.value)} placeholder="password" className="input input-bordered" required />
+          <input type="text" value={localConfirmPassword} onChange={(e) => setLocalConfirmPassword(e.target.value)} placeholder="password" className="input input-bordered" required />
       
           <label className="label">
             <Link to="/resetpassword" className="label-text-alt link link-hover">Forgot password?</Link>
