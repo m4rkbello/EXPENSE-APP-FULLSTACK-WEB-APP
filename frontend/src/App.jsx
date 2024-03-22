@@ -78,7 +78,7 @@ function App(props) {
   const userAuthenticated = getUserAuthenticated(userCollection);
 
   return (
-    <div className='shadow-2xl bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% min-h-screen'>
+    <div className='shadow-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ... min-h-screen'>
       <div className="navbar shadow-2xl bg-black flex justify-between items-center px-4 py-2">
         {hasToken && hasToken.length !== 0 ? (
           <div className="drawer">

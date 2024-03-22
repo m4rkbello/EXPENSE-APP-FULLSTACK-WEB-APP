@@ -18,9 +18,6 @@ const Login = ({ loginUserPost }) => {
     event.preventDefault();
     try {
       const postAndResponseUserLogin = await loginUserPost({ email: localEmail, password: localPassword });
-      //  console.log("RESPONSE SA USER LOGIN:", postAndResponseUserLogin);
-      //  handleLoginResponse(postAndResponseUserLogin);
-  
       console.log("RESPONDE SA LOGIN!", postAndResponseUserLogin);
       window.location.reload();
       navigate("/home");
