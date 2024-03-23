@@ -17,4 +17,10 @@ class student extends Model
         'std_age',
         'status'
     ];
+
+    public function qrcode()
+    {
+        return $this->hasOne(qrcode::class);
+    }
+
 }
