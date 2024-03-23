@@ -18,8 +18,8 @@ const Register = ({registerUserPost}) => {
       try {
         await registerUserPost({name: localName, email: localEmail, password: localPassword, password_confirmation: localConfirmPassword });
        
-      window.location.reload();
-      navigate("/login");
+      // window.location.reload();
+      // navigate("/login");
       } catch (error) {
         toast.error("Email and password are incorrect!");
       }
