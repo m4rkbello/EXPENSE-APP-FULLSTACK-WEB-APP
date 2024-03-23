@@ -42,4 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    //naka foreignkey sa qrcode 
+    public function qrcode()
+    {
+        return $this->hasOne(qrcode::class);
+    }
+
 }
