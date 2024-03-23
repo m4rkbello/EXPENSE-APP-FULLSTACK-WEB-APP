@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\QrCodeController;
 
 
 
@@ -28,6 +29,8 @@ Route::post('/find-user', [AuthController::class, 'findUserEmail']);
 Route::put('/resetpassword/{email}', [AuthController::class, 'newUserPassword']);
 Route::put('/resetpassword', [AuthController::class, 'postNewPassword']);
 Route::get('/users', [AuthController::class, 'index']);
+Route::get('/qrcodes', [QrCodeController::class, 'index']);
+
 
 
 
