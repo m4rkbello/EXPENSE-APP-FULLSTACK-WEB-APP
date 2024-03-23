@@ -251,9 +251,8 @@ class AuthController extends Controller
         return response($response, 200);
 
     }
-
-    public function qrAuthentication(){
-        
+public function qrcViewAll(){
+    return qr_code::all();
     }
     
 }
