@@ -12,6 +12,7 @@ use App\Models\User;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 class AuthController extends Controller
@@ -23,24 +24,62 @@ class AuthController extends Controller
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed'
         ]);
-
+    
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password'])
         ]);
-
+    
+        // Generate QR code
+        $qrCode = QrCode::format('png')->size(400)->generate("User ID: {$user->id}");
+    
+        // Save QR code to disk
+        $qrCodeSaved = $this->saveQRCode($qrCode, $user->id);
+    
+        if (!$qrCodeSaved) {
+            $response = [
+                'success' => false,
+                'message' => 'Failed to save QR code.',
+            ];
+            return response($response, 500); // Return an error response
+        }
+    
         $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
         $response = [
             'success' => true,
             'message' => 'User has new token!',
             'user' => $user,
-            'token' => $token
+            'token' => $token,
+            'qr_code_path' => $qrCodeSaved 
         ];
-
+    
         return response($response, 201);
     }
-
+    
+    private function saveQRCode($qrCode, $userId)
+    {
+        $path = public_path("qrcodes/{$userId}.png");
+        \Log::info("Attempting to save QR code to: $path");
+    
+        $directory = dirname($path);
+        if (!is_dir($directory)) {
+            \Log::info("Creating directory: $directory");
+            if (!mkdir($directory, 0755, true)) {
+                \Log::error("Failed to create directory: $directory");
+                return false;
+            }
+        }
+    
+        if (file_put_contents($path, $qrCode) === false) {
+            \Log::error("Failed to save QR code to: $path");
+            return false; // Return false to indicate failure
+        }
+    
+        \Log::info("QR code saved successfully to: $path");
+        return $path; // Return the path to the saved QR code
+    }
+    
     public function login(Request $request)
     {
         $data = $request->validate([
