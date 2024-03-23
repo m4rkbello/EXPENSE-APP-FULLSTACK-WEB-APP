@@ -14,11 +14,21 @@ const AddStudentModal = ({ createStudentRequest }) => {
 
 
   const handleCreateStudent = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Add this line to prevent form submission
+  
     try {
-      const postAndResponseCreateStudent = await createStudentRequest({ std_fname: firstName, std_mname: middleName, std_lname: lastName,  std_address: address, std_age: age, status: selectedStatus });
+      const postAndResponseCreateStudent = await createStudentRequest({
+        std_fname: firstName,
+        std_mname: middleName,
+        std_lname: lastName,
+        std_address: address,
+        std_age: age,
+        status: selectedStatus,
+      });
 
-      // console.log("RESPONDE SA LOGIN!", postAndResponseCreateStudent);
+      
+  
+      console.log("RESPONSE SA LOGIN!", postAndResponseCreateStudent);
       // navigate("/home");
       // window.location.reload();
     } catch (error) {
@@ -26,9 +36,11 @@ const AddStudentModal = ({ createStudentRequest }) => {
     }
   };
 
+  console.log('Form Data:', { firstName, middleName, lastName, address, age, selectedStatus });
+
   return (
     <div>
-      <dialog id="add_student" className="modal">
+      <dialog id="add_student" className="modal lg:w-4/4">
         <div className="modal-box max-w-4xl">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
@@ -109,7 +121,13 @@ const AddStudentModal = ({ createStudentRequest }) => {
               <br />
             </div>
             <div className='grid justify-items-end'>
-              <button className="btn" type="submit" onClick={handleCreateStudent}>Add</button>
+            <button
+            className="btn"
+            type="submit"
+            onClick={(event) => handleCreateStudent(event)}
+          >
+            Add
+          </button>
             </div>
           </form>
         </div>

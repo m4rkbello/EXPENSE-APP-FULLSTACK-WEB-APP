@@ -83,4 +83,7 @@ module.exports = {
 16. ADD EMAIL 
 ->php artisan make:mail ForgotPasswordMail 
 17. ADD MODEL FOR PASSWORDTOKEN
-->php artisan make:model PasswordResetToken
+->php artisan make:model PasswordResetToken 
+18. INSTALL QRCODE PACKAGE 
+-> composer require simplesoftwareio/simple-qrcode
+->php artisan make:controller QRCodeController

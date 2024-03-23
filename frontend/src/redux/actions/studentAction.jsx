@@ -52,9 +52,9 @@ export const fetchStudentFailure = (error) => ({
 export const createStudentRequest = (student) => {
   return async (dispatch) => {
     dispatch({ type: CREATE_STUDENT_REQUEST });
-    
     try {
       const response = await api.post('/api/students', student);
+      console.log('API Response:', response); // Add this line
       dispatch({ type: CREATE_STUDENT_SUCCESS, payload: response.data });
       console.log("ADD STUDENT POST", response.data);
     } catch (error) {
@@ -64,6 +64,8 @@ export const createStudentRequest = (student) => {
     }
   };
 };
+
+
 export const createStudentSuccess = () => ({
     type: CREATE_STUDENT_SUCCESS,
 });

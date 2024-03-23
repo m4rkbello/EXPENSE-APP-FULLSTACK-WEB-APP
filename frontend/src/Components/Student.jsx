@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchStudentRequest } from '../redux/actions/studentAction';
+import { fetchStudentRequest, createStudentRequest } from '../redux/actions/studentAction';
 import { PiStudentFill } from "react-icons/pi";
 import { BiSolidShow, BiEditAlt, BiPlus } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
@@ -13,6 +13,7 @@ function Student(props) {
 
     useEffect(() => {
         props.fetchStudentRequest();
+        console.log('studentsData:', studentsData);
     }, []);
 
     return (
@@ -36,6 +37,7 @@ function Student(props) {
             </div>
 
             <div className="w-full lg:w-4/4">
+                <button className="btn join-item " onClick={() => document.getElementById('add_student').showModal()}>ADD<BiPlus /></button>
 
                 <div className="flex">
                     <div className="flex-auto">
@@ -49,7 +51,7 @@ function Student(props) {
                         </div>
 
                     </div>
-                 
+
 
                 </div>
 
@@ -99,8 +101,10 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchStudentRequest: () => dispatch(fetchStudentRequest())
+        fetchStudentRequest: () => dispatch(fetchStudentRequest()),
+        createStudentRequest: (student) => dispatch(createStudentRequest(student)), // Corrected
     };
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Student);
