@@ -91,4 +91,6 @@ module.exports = {
 ->php artisan make:model student -mfsr(migration faker seeder resources)
 20. INSTALL USAB SIMPLE QRCODE 
 ->composer require simplesoftwareio/simple-qrcode "~1"
+21. INSTALL REACTJS QRCODE SCANNER 
+->npm i use-scan-detection
 
