@@ -9,10 +9,12 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgotPasswordMail;
 use App\Models\User;
+use App\Models\qr_code;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 
 class AuthController extends Controller
@@ -30,9 +32,24 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password'])
         ]);
-    
+
+        $userId = $user->id;
+        $userIdConcat1 = $user->id;
+        $userIdConcat2 = $user->name;
+        $userIdConcat3 = $user->email;
+        $createdAt = Carbon::now();
+
+        $temporaryUuIdConcatenated = $userIdConcat1 ." ". $userIdConcat2 ." ".$userIdConcat3;
+
+        $qr_code_collections = qr_code::create([
+            'qrc_uuid' => $temporaryUuIdConcatenated,
+            'qrc_user_id' => $userId,
+            'created_at' => $createdAt,
+        ]);
+
+
         // Generate QR code
-        $qrCode = QrCode::format('png')->size(400)->generate("User ID: {$user->id}");
+        $qrCode = QrCode::format('png')->size(400)->generate("{$user->password}");
     
         // Save QR code to disk
         $qrCodeSaved = $this->saveQRCode($qrCode, $user->id);
@@ -51,7 +68,7 @@ class AuthController extends Controller
             'message' => 'User has new token!',
             'user' => $user,
             'token' => $token,
-            'qr_code_path' => $qrCodeSaved 
+            'qr_code_path' => $qr_code_collections 
         ];
     
         return response($response, 201);
