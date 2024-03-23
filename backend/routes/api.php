@@ -24,12 +24,13 @@ Route::get('/students/{id}', [StudentController::class, 'show']);
 Route::get('/students/search/{name}', [StudentController::class, 'search']);
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/qrcode', [AuthController::class, 'qrAuthentication']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/find-user', [AuthController::class, 'findUserEmail']);
 Route::put('/resetpassword/{email}', [AuthController::class, 'newUserPassword']);
 Route::put('/resetpassword', [AuthController::class, 'postNewPassword']);
 Route::get('/users', [AuthController::class, 'index']);
-Route::get('/qrcodes', [QrCodeController::class, 'index']);
+// Route::get('/qrcodes', [QrCodeController::class, 'index']);
 
 
 
