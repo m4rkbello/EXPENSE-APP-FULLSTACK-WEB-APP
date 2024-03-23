@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import Home from './Components/Home';
-import QrCodeLogin from './Components/Authentication/QrCodeLoginAuthentication';
 import Login from './Components/Authentication/Login';
 import Register from './Components/Authentication/Register';
+import QrCodeLoginAuthentication from './Components/Authentication/QrCodeLoginAuthentication';
 import Wallet from './Components/Student';
 import Sidebar from './Components/SideBar';
 import ResetPassword from './Components/User/ResetUser/FindUserEmail';
@@ -84,17 +84,17 @@ function App(props) {
 
   return (
     <div className='shadow-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ... min-h-screen'>
-    <EditProfileModal ref={editUserProfileModalRef} id="edit_user_profile" title="Add Student" />
+      <EditProfileModal ref={editUserProfileModalRef} id="edit_user_profile" title="Add Student" />
       <div className="navbar shadow-2xl bg-black flex justify-between items-center px-4 py-2">
-      {hasToken && hasToken.length !== 0 ? (
-        <div className="drawer">
-        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
-        <label htmlFor="my-drawer" className="btn btn-primary drawer-button">
-        <AiOutlineMenu /> Menu
-        </label>
-        </div>
-      
+        {hasToken && hasToken.length !== 0 ? (
+          <div className="drawer">
+            <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+            <div className="drawer-content">
+              <label htmlFor="my-drawer" className="btn btn-primary drawer-button">
+                <AiOutlineMenu /> Menu
+              </label>
+            </div>
+
             <div className="shadow-2xl drawer-side">
               <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
               <ul className="menu p-4 w-80 min-h-full bg-black text-base-content">
@@ -127,20 +127,23 @@ function App(props) {
                 ))}
                 <div>
 
-                <div className="avatar online">
-                <div className="w-14 rounded-full">
-                  <button onClick={() => editUserProfileModalRef.current && editUserProfileModalRef.current.showModal()}>
-                    <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                  </button>
-                </div>
-              </div>
-              
-                
+                  <div className="avatar online">
+                    <div className="w-14 rounded-full">
+                      <button onClick={() => editUserProfileModalRef.current && editUserProfileModalRef.current.showModal()}>
+                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                      </button>
+                    </div>
+                  </div>
+
+
                 </div>
               </>
             ) : (
               <div>
                 <ul className="menu menu-horizontal px-1 text-white text-base">
+                  <li className='shadow-2xl'>
+                    <Link to="/qrc">Scan QR</Link>
+                  </li>
                   <li className='shadow-2xl'>
                     <Link to="/login">Login</Link>
                   </li>
@@ -169,6 +172,7 @@ function App(props) {
           ) : (
             <>
               <Route path="/login" element={<Login />} />
+              <Route path="/qrc" element={<QrCodeLoginAuthentication />} />
               <Route path="/register" element={<Register />} />
               <Route path="/resetpassword" element={<ResetPassword />} />
             </>
