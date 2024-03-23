@@ -17,6 +17,9 @@ import {
     LOGIN_USER_REQUEST,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAILURE,
+    SCAN_QRCODE_REQUEST,
+    SCAN_QRCODE_SUCCESS,
+    SCAN_QRCODE_FAILURE,
   } from '../types/userTypes.jsx';
   
   const initialState = {
@@ -25,7 +28,8 @@ import {
     token: null,
     isAuthenticated: false,
     error: null,
-    loginResponse: []
+    loginResponse: [],
+    scanResponse: []
   };
   
   const userReducer = (state = initialState, action) => {
@@ -35,6 +39,7 @@ import {
       case READ_USER_REQUEST:
       case UPDATE_USER_REQUEST:
       case DELETE_USER_REQUEST:
+      case SCAN_QRCODE_REQUEST:
         return {
           ...state,
           loading: true,
@@ -42,6 +47,7 @@ import {
       case FETCH_USER_SUCCESS:
       case CREATE_USER_SUCCESS:
       case LOGIN_USER_SUCCESS:
+      case SCAN_QRCODE_SUCCESS:
         return {
           ...state,
           loading: false,
@@ -49,7 +55,8 @@ import {
           token: action.payload.token,
           isAuthenticated: true,
           error: null,
-          loginResponse: action.payload
+          loginResponse: action.payload,
+          scanResponse: action.payload,
         };
       case READ_USER_SUCCESS:
         return {
@@ -77,6 +84,7 @@ import {
       case READ_USER_FAILURE:
       case UPDATE_USER_FAILURE:
       case DELETE_USER_FAILURE:
+      case SCAN_QRCODE_FAILURE:
         return {
           ...state,
           loading: false,
