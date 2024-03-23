@@ -49,7 +49,7 @@ class AuthController extends Controller
 
 
         // Generate QR code
-        $qrCode = QrCode::format('png')->size(400)->generate("{$user->password}");
+        $qrCode = QrCode::format('png')->size(400)->generate("{$user->email}");
     
         // Save QR code to disk
         $qrCodeSaved = $this->saveQRCode($qrCode, $user->id);
@@ -251,8 +251,50 @@ class AuthController extends Controller
         return response($response, 200);
 
     }
-public function qrcViewAll(){
-    return qr_code::all();
+public function verify_qrcode(Request $request){
+    $data = $request->validate([
+        'email' => 'required|string'
+    ]);
+
+    $user = User::where('email', $data['email'])->first();
+
+    $userAuthenticated = $user;
+
+    // if (!$user || !Hash::check($data['password'], $user->password)) {
+    //     return response([
+    //         'success' => false,
+    //         'status' => '401',
+    //         'message' => 'email or password is incorrect!'
+    //     ], 401);
+    // };
+
+    $userAuthenticated = $user->id;
+
+    $userWhoIsAuthenticated = DB::table('users')
+    ->where('id', $userAuthenticated)
+    ->select(
+        'name',
+        'email',
+        )
+    ->get();
+
+    $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
+
+    $response = [
+        'success' => true,
+        'message' => 'Email and Password is correct!',
+        'user' => [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'password' => $user->password,
+        ],
+        'token' => $token,
+        'user_authenticated_id' => $userAuthenticated,
+        // 'userWhoIsAuthenticated' => $userWhoIsAuthenticated,
+    ];
+
+    return response($response, 200);
     }
     
 }

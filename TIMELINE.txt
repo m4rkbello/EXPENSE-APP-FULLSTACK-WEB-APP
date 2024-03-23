@@ -93,4 +93,6 @@ module.exports = {
 ->composer require simplesoftwareio/simple-qrcode "~1"
 21. INSTALL REACTJS QRCODE SCANNER 
 ->npm i use-scan-detection
+22. QRCODE READER FOR simplesoftwareio/simple-qrcode 
+->npm i qr-scanner
 
