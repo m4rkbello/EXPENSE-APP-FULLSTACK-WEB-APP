@@ -18,9 +18,9 @@ class student extends Model
         'status'
     ];
 
-    public function qrcode()
+    public function qr_code()
     {
-        return $this->hasOne(qrcode::class);
+        return $this->hasOne(qr_code::class);
     }
 
 }
