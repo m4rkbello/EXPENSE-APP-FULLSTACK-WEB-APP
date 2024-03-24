@@ -24,10 +24,10 @@ Route::get('/students/{id}', [StudentController::class, 'show']);
 Route::get('/students/search/{name}', [StudentController::class, 'search']);
 
 Route::post('/login', [AuthController::class, 'login']);
-// Route::post('/scan-qrcode', [AuthController::class, 'verify_qrcode']);
-Route::any('/scan-qrcode', function () {
-    return response()->json(['message' => 'Scan QR Code route hit']);
-});
+Route::post('/scan-qrcode', [AuthController::class, 'verify_qrcode']);
+// Route::any('/scan-qrcode', function () {
+//     return response()->json(['message' => 'Scan QR Code route hit']);
+// });
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/find-user', [AuthController::class, 'findUserEmail']);
