@@ -47,7 +47,6 @@ class AuthController extends Controller
             'created_at' => $createdAt,
         ]);
 
-
         // Generate QR code
         $qrCode = QrCode::format('png')->size(400)->generate("{$user->email}");
     
@@ -118,14 +117,6 @@ class AuthController extends Controller
 
         $userAuthenticated = $user->id;
 
-        $userWhoIsAuthenticated = DB::table('users')
-        ->where('id', $userAuthenticated)
-        ->select(
-            'name',
-            'email',
-            )
-        ->get();
-
         $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
 
         $response = [
@@ -139,7 +130,6 @@ class AuthController extends Controller
             ],
             'token' => $token,
             'user_authenticated_id' => $userAuthenticated,
-            // 'userWhoIsAuthenticated' => $userWhoIsAuthenticated,
         ];
 
         return response($response, 200);
@@ -260,23 +250,7 @@ public function verify_qrcode(Request $request){
 
     $userAuthenticated = $user;
 
-    // if (!$user || !Hash::check($data['password'], $user->password)) {
-    //     return response([
-    //         'success' => false,
-    //         'status' => '401',
-    //         'message' => 'email or password is incorrect!'
-    //     ], 401);
-    // };
-
     $userAuthenticated = $user->id;
-
-    $userWhoIsAuthenticated = DB::table('users')
-    ->where('id', $userAuthenticated)
-    ->select(
-        'name',
-        'email',
-        )
-    ->get();
 
     $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
 
@@ -291,7 +265,6 @@ public function verify_qrcode(Request $request){
         ],
         'token' => $token,
         'user_authenticated_id' => $userAuthenticated,
-        // 'userWhoIsAuthenticated' => $userWhoIsAuthenticated,
     ];
 
     return response($response, 200);
