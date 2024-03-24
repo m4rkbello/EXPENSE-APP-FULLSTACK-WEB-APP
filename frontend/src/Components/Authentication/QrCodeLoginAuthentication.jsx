@@ -1,33 +1,66 @@
 import React, { useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import QrScanner from 'qr-scanner';
 import 'qr-scanner/qr-scanner-worker.min.js';
-import { qRCodeIsAuthenticated } from '../../redux/actions/userActions';
+// import { qRCodeIsAuthenticated } from '../../redux/actions/userActions';
 
-function QrCodeLoginAuthentication({ qRCodeIsAuthenticated }) {
+function QrCodeLoginAuthentication() {
   const videoRef = useRef(null);
   const navigate = useNavigate();
 
+
+  {/**
   useEffect(() => {
     const scanner = new QrScanner(videoRef.current, async (result) => {
       console.log("Scanned QR code:", result);
       try {
         const postAndResponseQRCodeScan = await qRCodeIsAuthenticated({ email: result });
         console.log("RESPONSE FROM QRCODE SCAN!", postAndResponseQRCodeScan);
+        window.location.reload();
         navigate("/home");
       } catch (error) {
         console.error(error);
         // Handle error, e.g., show a toast or modal
       }
     });
-
+  
     scanner.start();
-
+  
     return () => {
       scanner.destroy();
     };
-  }, [qRCodeIsAuthenticated]);
+  }, []);
+*/}
+
+useEffect(() => {
+  const scanner = new QrScanner(videoRef.current, result => {
+    console.log("GANA NA KOL", result);
+
+    // Add a delay of 3 seconds (adjust as needed)
+    setTimeout(() => {
+      // Make a POST request to the backend with the scanned QR code value
+      api.post('/scan-qrcode', { email: result })
+        .then(response => {
+          // Handle response if needed
+          console.log(response.data);
+          window.location.reload();
+          navigate("/home");
+        })
+        .catch(error => {
+          // Handle error if needed
+          console.error(error);
+        });
+    }, 10000); // 3000 milliseconds = 3 seconds
+  });
+
+  scanner.start();
+
+  return () => {
+    scanner.destroy();
+  };
+}, []);
+
 
   return (
     <div className="hero min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
@@ -67,4 +100,5 @@ function QrCodeLoginAuthentication({ qRCodeIsAuthenticated }) {
   );
 }
 
-export default connect(null, { qRCodeIsAuthenticated })(QrCodeLoginAuthentication);
+// export default connect(null, {qRCodeIsAuthenticated})(QrCodeLoginAuthentication);
+export default QrCodeLoginAuthentication;

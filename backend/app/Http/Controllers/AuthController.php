@@ -26,7 +26,7 @@ class AuthController extends Controller
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed'
         ]);
-    
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -39,7 +39,7 @@ class AuthController extends Controller
         $userIdConcat3 = $user->email;
         $createdAt = Carbon::now();
 
-        $temporaryUuIdConcatenated = $userIdConcat1 ." ". $userIdConcat2 ." ".$userIdConcat3;
+        $temporaryUuIdConcatenated = $userIdConcat1 . " " . $userIdConcat2 . " " . $userIdConcat3;
 
         $qr_code_collections = qr_code::create([
             'qrc_uuid' => $temporaryUuIdConcatenated,
@@ -49,10 +49,10 @@ class AuthController extends Controller
 
         // Generate QR code
         $qrCode = QrCode::format('png')->size(400)->generate("{$user->email}");
-    
+
         // Save QR code to disk
         $qrCodeSaved = $this->saveQRCode($qrCode, $user->id);
-    
+
         if (!$qrCodeSaved) {
             $response = [
                 'success' => false,
@@ -60,24 +60,24 @@ class AuthController extends Controller
             ];
             return response($response, 500); // Return an error response
         }
-    
+
         $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
         $response = [
             'success' => true,
             'message' => 'User has new token!',
             'user' => $user,
             'token' => $token,
-            'qr_code_path' => $qr_code_collections 
+            'qr_code_path' => $qr_code_collections
         ];
-    
+
         return response($response, 201);
     }
-    
+
     private function saveQRCode($qrCode, $userId)
     {
         $path = public_path("qrcodes/{$userId}.png");
         \Log::info("Attempting to save QR code to: $path");
-    
+
         $directory = dirname($path);
         if (!is_dir($directory)) {
             \Log::info("Creating directory: $directory");
@@ -86,16 +86,16 @@ class AuthController extends Controller
                 return false;
             }
         }
-    
+
         if (file_put_contents($path, $qrCode) === false) {
             \Log::error("Failed to save QR code to: $path");
             return false; // Return false to indicate failure
         }
-    
+
         \Log::info("QR code saved successfully to: $path");
         return $path; // Return the path to the saved QR code
     }
-    
+
     public function login(Request $request)
     {
         $data = $request->validate([
@@ -113,7 +113,8 @@ class AuthController extends Controller
                 'status' => '401',
                 'message' => 'email or password is incorrect!'
             ], 401);
-        };
+        }
+        ;
 
         $userAuthenticated = $user->id;
 
@@ -148,16 +149,16 @@ class AuthController extends Controller
     public function findUserEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
-    
+
         $user = User::where('email', $request->email)->first();
-    
+
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
-    
+
         // $token = Str::random(60);
         $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
-    
+
         DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $user->email],
             ['token' => $token, 'created_at' => Carbon::now()]
@@ -165,7 +166,7 @@ class AuthController extends Controller
 
         // Send the email with the reset password link
         $mailSent = Mail::to($user->email)->send(new ForgotPasswordMail($token));
-    
+
         if ($mailSent) {
             return response()->json([
                 'status' => true,
@@ -180,28 +181,29 @@ class AuthController extends Controller
     public function newUserPassword(Request $request, string $email)
     {
         $user = User::where('email', $email)->first();
-    
+
         if (!$user) {
             return response()->json([
                 'success' => false,
                 'message' => 'User not found.',
             ], 404);
         }
-    
+
         $user->update($request->all());
         $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
-    
+
         $response = [
             "success" => true,
             "message" => 'User has a new password successfully!',
             "user" => $user,
             "token" => $token
         ];
-    
+
         return response($response, 201);
     }
 
-    public function postNewPassword(Request $request){
+    public function postNewPassword(Request $request)
+    {
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
@@ -224,9 +226,10 @@ class AuthController extends Controller
 
         return response($response, 201);
     }
-    
 
-    public function index(){
+
+    public function index()
+    {
 
         $users = User::all();
         $personal_access_token = DB::table('personal_access_tokens')->get();
@@ -241,33 +244,34 @@ class AuthController extends Controller
         return response($response, 200);
 
     }
-public function verify_qrcode(Request $request){
-    $data = $request->validate([
-        'email' => 'required|string'
-    ]);
+    public function verify_qrcode(Request $request)
+    {
+        $data = $request->validate([
+            'email' => 'required|string'
+        ]);
 
-    $user = User::where('email', $data['email'])->first();
+        $user = User::where('email', $data['email'])->first();
 
-    $userAuthenticated = $user;
+        $userAuthenticated = $user;
 
-    $userAuthenticated = $user->id;
+        $userAuthenticated = $user->id;
 
-    $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
+        $token = $user->createToken('m4rkbellofullstack')->plainTextToken;
 
-    $response = [
-        'success' => true,
-        'message' => 'Email and Password is correct!',
-        'user' => [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'password' => $user->password,
-        ],
-        'token' => $token,
-        'user_authenticated_id' => $userAuthenticated,
-    ];
+        $response = [
+            'success' => true,
+            'message' => 'Email and Password is correct!',
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => $user->password,
+            ],
+            'token' => $token,
+            'user_authenticated_id' => $userAuthenticated,
+        ];
 
-    return response($response, 200);
+        return response($response, 200);
     }
-    
+
 }

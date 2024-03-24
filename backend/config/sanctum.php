@@ -15,12 +15,7 @@ return [
     |
     */
 
-    // 'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
-    //     '%s%s',
-    //     'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1',
-    //     Sanctum::currentApplicationUrlWithPort()
-    // ))),
-    'stateful' => env('SANCTUM_STATEFUL_DOMAINS', true),
+    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', 'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1')),
 
     /*
     |--------------------------------------------------------------------------
@@ -76,13 +71,14 @@ return [
     */
 
     'middleware' => [
+        'authenticate_session' => Laravel\Sanctum\Http\Middleware\AuthenticateSession::class,
         'verify_csrf_token' => App\Http\Middleware\VerifyCsrfToken::class,
         'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,
         'add_qprid_header' => App\Http\Middleware\AddQpridHeader::class,
         'start_session' => \Illuminate\Session\Middleware\StartSession::class,
         'share_errors_from_session' => \App\Http\Middleware\ShareErrorsFromSession::class,
         'throttle_requests' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'EnsureFrontendRequestsAreStateful',
+        'EnsureFrontendRequestsAreStateful' => Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
     ],
 
 ];
