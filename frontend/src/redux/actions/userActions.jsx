@@ -117,32 +117,18 @@ export const loginUserPost = (userData) => {
 
 export const qRCodeIsAuthenticated = (email) => {
   return async (dispatch) => {
-    dispatch({ type: SCAN_QRCODE_REQUEST  });
+    dispatch({ type: SCAN_QRCODE_REQUEST });
     try {
       const response = await api.post('/api/scan-qrcode', email);
-      dispatch({ type: SCAN_QRCODE_REQUEST, payload: response.data });
-      dispatch({
-        type: {SCAN_QRCODE_SUCCESS},
-        payload: { user: response.data.user, token: response.data.token },
-      });
-      console.log("RESPONSE FROM QRCODE", token);
-      const { token } = response.data;
+      dispatch({ type: SCAN_QRCODE_SUCCESS, payload: response.data });
+      console.log("RESPONSE FROM QRCODE", response.data.token);
 
+      const { token } = response.data;
       // Save token to localStorage
       localStorage.setItem('M4rkbelloFullstackPersonalAccessToken', token);
-
       // Save token to cookie
-      document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; 
-        expires=${new Date(Date.now() + 86400 * 1000
-      ).toUTCString()}; path=/`;
-      document.cookie = `M4rkBelloFullstackTime=${token}; 
-        expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
-
-      // Clear local email and password (assuming these are state variables)
-      setLocalEmail('');
-      setLocalPassword('');
-
-
+      document.cookie = `M4rkbelloFullstackPersonalAccessToken=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
+      document.cookie = `M4rkBelloFullstackTime=${token}; expires=${new Date(Date.now() + 86400 * 1000).toUTCString()}; path=/`;
     } catch (error) {
       dispatch({ type: SCAN_QRCODE_FAILURE, payload: error.message });
       console.log('Login error:', error);
