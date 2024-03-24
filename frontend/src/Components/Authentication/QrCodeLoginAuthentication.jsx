@@ -25,7 +25,7 @@ function QrCodeLoginAuthentication() {
             // Handle error if needed
             console.error(error);
           });
-      }, 5000); // 3000 milliseconds = 3 seconds
+      }, 10000); // 3000 milliseconds = 3 seconds
     });
 
     scanner.start();
